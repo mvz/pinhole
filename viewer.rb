@@ -1,3 +1,4 @@
+require 'optparse'
 require 'gtk2'
 
 class Viewer
@@ -20,7 +21,9 @@ class Viewer
   end
 end
 
-
-viewer = Viewer.new("_DSC2502.jpg")
-
+# Main
+opts = OptionParser.new()
+files = opts.parse(*ARGV)
+if files.empty? then exit; end
+viewer = Viewer.new(files.first)
 viewer.run
