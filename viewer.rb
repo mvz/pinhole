@@ -9,15 +9,43 @@ class Viewer
   def run
     Gtk.init
 
-    window = Gtk::Window.new
+    setup_ui
+
+    @fullscreen = false
+
     buf = Gdk::Pixbuf.new(@filename, 1024, 768)
     im = Gtk::Image.new(buf)
-    eb = Gtk::EventBox.new.add(im)
-    window.signal_connect("destroy") { Gtk.main_quit }
-    window.border_width = 0
-    window.add(eb)
-    window.show_all
+    @eventbox.add(im)
+    @window.signal_connect("destroy") { Gtk.main_quit }
+    @window.show_all
     Gtk.main
+  end
+
+  private
+
+  def setup_ui
+    b = Gtk::Builder.new
+    b.add("rthumb.xml")
+    @window = b["window1"]
+    @eventbox = b["eventbox1"]
+  end
+
+  def toggle_fullscreen
+    if @fullscreen then
+      @fullscreen = false
+      stop_fullscreen
+    else
+      @fullscreen = true
+      run_fullscreen
+    end
+  end
+
+  def run_fullscreen
+    @window.fullscreen
+  end
+
+  def stop_fullscreen
+    @window.unfullscreen
   end
 end
 
