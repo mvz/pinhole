@@ -28,9 +28,10 @@ class Viewer
     b.add("rthumb.xml")
     @window = b["window1"]
     @eventbox = b["eventbox1"]
+    b.connect_signals { |name| method(name) }
   end
 
-  def toggle_fullscreen
+  def on_menu_fullscreen_activate
     if @fullscreen then
       @fullscreen = false
       stop_fullscreen

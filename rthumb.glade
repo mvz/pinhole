@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Mon Dec 29 22:21:30 2008 -->
+<!--Generated with glade3 3.4.5 on Mon Dec 29 23:54:23 2008 -->
 <glade-interface>
   <widget class="GtkWindow" id="window1">
     <child>
@@ -115,6 +115,21 @@
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">_View</property>
                 <property name="use_underline">True</property>
+                <child>
+                  <widget class="GtkMenu" id="menu4">
+                    <property name="visible">True</property>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="menu_fullscreen">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">gtk-fullscreen</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="on_menu_fullscreen_activate"/>
+                        <accelerator key="F11" modifiers="" signal="activate"/>
+                      </widget>
+                    </child>
+                  </widget>
+                </child>
               </widget>
             </child>
             <child>
