@@ -18,7 +18,6 @@ class Viewer
     buf = Gdk::Pixbuf.new(@filename, 1024, 768)
     im = Gtk::Image.new(buf)
     @mainbox.add(im)
-    @window.signal_connect("destroy") { Gtk.main_quit }
     @window.show_all
     Gtk.main
   end
@@ -29,6 +28,10 @@ class Viewer
     @builder = Gtk::Builder.new
     @builder.add "rthumb.xml"
     @builder.connect_signals { |name| method(name) }
+  end
+
+  def on_mainwindow_destroy
+    Gtk.main_quit
   end
 
   def on_mainwindow_window_state_event w, e
