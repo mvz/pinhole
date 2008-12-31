@@ -13,10 +13,21 @@ class Viewer
 
     @fullscreen = false
 
+    @window = @builder["mainwindow"]
+    @mainbox = @builder["eventbox"]
     buf = Gdk::Pixbuf.new(@filename, 1024, 768)
     im = Gtk::Image.new(buf)
-    @eventbox.add(im)
+    @mainbox.add(im)
     @window.signal_connect("destroy") { Gtk.main_quit }
+    @window.signal_connect("window-state-event") {|w,e,d|
+      if e.new_window_state.fullscreen?
+	@builder["menubar"].visible = false
+	@builder["statusbar"].visible = false
+      else
+	@builder["menubar"].visible = true
+	@builder["statusbar"].visible = true
+      end
+    }
     @window.show_all
     Gtk.main
   end
@@ -24,29 +35,19 @@ class Viewer
   private
 
   def setup_ui
-    b = Gtk::Builder.new
-    b.add("rthumb.xml")
-    @window = b["window1"]
-    @eventbox = b["eventbox1"]
-    b.connect_signals { |name| method(name) }
+    @builder = Gtk::Builder.new
+    @builder.add "rthumb.xml"
+    @builder.connect_signals { |name| method(name) }
   end
 
   def on_menu_fullscreen_activate
     if @fullscreen then
       @fullscreen = false
-      stop_fullscreen
+      @window.unfullscreen
     else
       @fullscreen = true
-      run_fullscreen
+      @window.fullscreen
     end
-  end
-
-  def run_fullscreen
-    @window.fullscreen
-  end
-
-  def stop_fullscreen
-    @window.unfullscreen
   end
 end
 

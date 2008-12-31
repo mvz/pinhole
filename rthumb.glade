@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Mon Dec 29 23:54:23 2008 -->
+<!--Generated with glade3 3.4.5 on Tue Dec 30 19:02:16 2008 -->
 <glade-interface>
-  <widget class="GtkWindow" id="window1">
+  <widget class="GtkWindow" id="mainwindow">
+    <property name="title" translatable="yes">RThumb</property>
     <child>
-      <widget class="GtkVBox" id="vbox1">
+      <widget class="GtkVBox" id="mainvbox">
         <property name="visible">True</property>
         <child>
-          <widget class="GtkMenuBar" id="menubar1">
+          <widget class="GtkMenuBar" id="menubar">
             <property name="visible">True</property>
             <child>
               <widget class="GtkMenuItem" id="menuitem1">
@@ -158,7 +159,7 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkEventBox" id="eventbox1">
+          <widget class="GtkEventBox" id="eventbox">
             <property name="visible">True</property>
             <child>
               <placeholder/>
@@ -169,7 +170,7 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkStatusbar" id="statusbar1">
+          <widget class="GtkStatusbar" id="statusbar">
             <property name="visible">True</property>
             <property name="spacing">2</property>
           </widget>
