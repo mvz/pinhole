@@ -19,15 +19,6 @@ class Viewer
     im = Gtk::Image.new(buf)
     @mainbox.add(im)
     @window.signal_connect("destroy") { Gtk.main_quit }
-    @window.signal_connect("window-state-event") {|w,e,d|
-      if e.new_window_state.fullscreen?
-	@builder["menubar"].visible = false
-	@builder["statusbar"].visible = false
-      else
-	@builder["menubar"].visible = true
-	@builder["statusbar"].visible = true
-      end
-    }
     @window.show_all
     Gtk.main
   end
@@ -38,6 +29,16 @@ class Viewer
     @builder = Gtk::Builder.new
     @builder.add "rthumb.xml"
     @builder.connect_signals { |name| method(name) }
+  end
+
+  def on_mainwindow_window_state_event w, e
+    if e.new_window_state.fullscreen?
+      @builder["menubar"].visible = false
+      @builder["statusbar"].visible = false
+    else
+      @builder["menubar"].visible = true
+      @builder["statusbar"].visible = true
+    end
   end
 
   def on_menu_fullscreen_activate
