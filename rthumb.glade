@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Wed Dec 31 08:48:37 2008 -->
+<!--Generated with glade3 3.4.5 on Thu Jan  1 20:36:16 2009 -->
 <glade-interface>
   <widget class="GtkWindow" id="mainwindow">
     <property name="title" translatable="yes">RThumb</property>
@@ -161,10 +161,24 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkEventBox" id="eventbox">
+          <widget class="GtkScrolledWindow" id="scrolledwindow1">
             <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+            <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
             <child>
-              <placeholder/>
+              <widget class="GtkViewport" id="viewport1">
+                <property name="visible">True</property>
+                <property name="resize_mode">GTK_RESIZE_QUEUE</property>
+                <child>
+                  <widget class="GtkEventBox" id="eventbox">
+                    <property name="visible">True</property>
+                    <child>
+                      <placeholder/>
+                    </child>
+                  </widget>
+                </child>
+              </widget>
             </child>
           </widget>
           <packing>
