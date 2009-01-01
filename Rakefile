@@ -5,6 +5,7 @@ task :interface do
 end
 
 task :test do
-  `ruby viewer.rb _DSC2502.jpg`
+  #`ruby viewer.rb _DSC2502.jpg`
+  `ruby viewer.rb p1013366.jpg`
 end
 
