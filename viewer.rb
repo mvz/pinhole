@@ -15,7 +15,7 @@ class Viewer
 
     @window = @builder["mainwindow"]
     @mainbox = @builder["eventbox"]
-    buf = Gdk::Pixbuf.new(@filename, 1024, 768)
+    buf = Gdk::Pixbuf.new(@filename) #, 1024, 768)
     im = Gtk::Image.new(buf)
     @mainbox.add(im)
     @window.show_all
@@ -28,6 +28,8 @@ class Viewer
     @builder = Gtk::Builder.new
     @builder.add "rthumb.xml"
     @builder.connect_signals { |name| method(name) }
+
+    @builder["viewport1"].set_size_request(0,0)
   end
 
   def on_mainwindow_destroy
@@ -38,9 +40,11 @@ class Viewer
     if e.new_window_state.fullscreen?
       @builder["menubar"].visible = false
       @builder["statusbar"].visible = false
+      @builder["scrolledwindow1"].set_policy(:never, :never)
     else
       @builder["menubar"].visible = true
       @builder["statusbar"].visible = true
+      @builder["scrolledwindow1"].set_policy(:automatic, :automatic)
     end
   end
 
