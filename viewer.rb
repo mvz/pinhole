@@ -15,9 +15,15 @@ class Viewer
 
     @window = @builder["mainwindow"]
     @mainbox = @builder["eventbox"]
-    buf = Gdk::Pixbuf.new(@filename) #, 1024, 768)
-    im = Gtk::Image.new(buf)
-    @mainbox.add(im)
+
+    @fullsize_buf = Gdk::Pixbuf.new(@filename) #, 1024, 768)
+    @image = Gtk::Image.new
+    @image.pixbuf = @fullsize_buf
+    @mainbox.add(@image)
+
+    @zoom = 1.0
+    @zoom_mode = :manual
+
     @window.show_all
     Gtk.main
   end
@@ -29,6 +35,8 @@ class Viewer
     @builder.add "rthumb.xml"
     @builder.connect_signals { |name| method(name) }
 
+    # This line is needed to prevent the viewport from forcing a minimum
+    # size on the window when the scroll bars are not visible
     @builder["viewport"].set_size_request(0,0)
   end
 
@@ -59,12 +67,30 @@ class Viewer
   end
 
   def on_menu_zoom_in_activate
+    set_manual_zoom @zoom * 1.15
   end
+
   def on_menu_zoom_out_activate
+    set_manual_zoom @zoom / 1.15
   end
+
   def on_menu_zoom_fit_activate
+    @zoom_mode = :fit
   end
+
   def on_menu_zoom_100_activate
+    @zoom_mode = :manual
+    @zoom = 1.0
+    @image.pixbuf = @fullsize_buf
+  end
+
+  def set_manual_zoom new_zoom
+    @zoom_mode = :manual
+    @zoom = new_zoom
+    b = @fullsize_buf.scale(@zoom * @fullsize_buf.width,
+			    @zoom * @fullsize_buf.height)
+    @image.pixbuf = b
+    GC.start
   end
 
   def on_viewport_button_press_event w, e
