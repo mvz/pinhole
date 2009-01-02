@@ -82,8 +82,15 @@ class Viewer
 
     viewport = @builder["viewport"]
 
-    viewport.hadjustment.value = @scrollx - dx
-    viewport.vadjustment.value = @scrolly - dy
+    set_adjustment(viewport.hadjustment, @scrollx - dx)
+    set_adjustment(viewport.vadjustment, @scrolly - dy)
+  end
+
+  def set_adjustment adj, val
+    max = adj.upper - adj.page_size
+    val = max if val > max
+    val = 0 if val < 0
+    adj.value = val
   end
 end
 
