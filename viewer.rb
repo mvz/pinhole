@@ -58,6 +58,15 @@ class Viewer
     end
   end
 
+  def on_menu_zoom_in_activate
+  end
+  def on_menu_zoom_out_activate
+  end
+  def on_menu_zoom_fit_activate
+  end
+  def on_menu_zoom_100_activate
+  end
+
   def on_viewport_button_press_event w, e
     @dragging = true
     @dragx = e.x_root

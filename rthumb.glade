@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Fri Jan  2 07:24:59 2009 -->
+<!--Generated with glade3 3.4.5 on Fri Jan  2 22:54:20 2009 -->
 <glade-interface>
   <widget class="GtkWindow" id="mainwindow">
     <property name="title" translatable="yes">RThumb</property>
@@ -131,6 +131,42 @@
                         <property name="use_stock">True</property>
                         <signal name="activate" handler="on_menu_fullscreen_activate"/>
                         <accelerator key="F11" modifiers="" signal="activate"/>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="menu_zoom_in">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">gtk-zoom-in</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="on_menu_zoom_in_activate"/>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="menu_zoom_out">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">gtk-zoom-out</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="on_menu_zoom_out_activate"/>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="menu_zoom_fit">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">gtk-zoom-fit</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="on_menu_zoom_fit_activate"/>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="menu_zoom_100">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">gtk-zoom-100</property>
+                        <property name="use_underline">True</property>
+                        <property name="use_stock">True</property>
+                        <signal name="activate" handler="on_menu_zoom_100_activate"/>
                       </widget>
                     </child>
                   </widget>
