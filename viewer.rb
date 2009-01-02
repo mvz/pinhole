@@ -62,12 +62,17 @@ class Viewer
     @dragging = true
     @dragx = e.x_root
     @dragy = e.y_root
-    @scrollx = @builder["viewport"].hadjustment.value
-    @scrolly = @builder["viewport"].vadjustment.value
+
+    viewport = @builder["viewport"]
+
+    @scrollx = viewport.hadjustment.value
+    @scrolly = viewport.vadjustment.value
+    viewport.window.cursor = Gdk::Cursor.new(Gdk::Cursor::FLEUR)
   end
 
   def on_viewport_button_release_event w, e
     @dragging = false
+    @builder["viewport"].window.cursor = nil
   end
 
   def on_viewport_motion_notify_event w, e
@@ -75,8 +80,10 @@ class Viewer
     dx = e.x_root - @dragx
     dy = e.y_root - @dragy
 
-    @builder["viewport"].hadjustment.value = @scrollx - dx
-    @builder["viewport"].vadjustment.value = @scrolly - dy
+    viewport = @builder["viewport"]
+
+    viewport.hadjustment.value = @scrollx - dx
+    viewport.vadjustment.value = @scrolly - dy
   end
 end
 
