@@ -67,30 +67,44 @@ class Viewer
   end
 
   def on_menu_zoom_in_activate
-    set_manual_zoom @zoom * 1.15
+    @zoom_mode = :manual
+    set_zoom @zoom * 1.15
   end
 
   def on_menu_zoom_out_activate
-    set_manual_zoom @zoom / 1.15
+    @zoom_mode = :manual
+    set_zoom @zoom / 1.15
   end
 
   def on_menu_zoom_fit_activate
     @zoom_mode = :fit
+    update_image_fit
   end
 
   def on_menu_zoom_100_activate
     @zoom_mode = :manual
     @zoom = 1.0
     @image.pixbuf = @fullsize_buf
+    GC.start
   end
 
-  def set_manual_zoom new_zoom
-    @zoom_mode = :manual
+  def set_zoom new_zoom
+    return if new_zoom <= 0.0
     @zoom = new_zoom
     b = @fullsize_buf.scale(@zoom * @fullsize_buf.width,
 			    @zoom * @fullsize_buf.height)
     @image.pixbuf = b
     GC.start
+  end
+
+  def update_image_fit
+    alloc = @builder["scrolledwindow"].allocation
+    
+    zoom = [(1.0 * alloc.width) / @fullsize_buf.width,
+      (1.0 * alloc.height) / @fullsize_buf.height,
+      1.0].min
+
+    set_zoom zoom
   end
 
   def on_viewport_button_press_event w, e
