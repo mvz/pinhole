@@ -21,6 +21,7 @@ class Viewer
     @image.pixbuf = @fullsize_buf
     @mainbox.add(@image)
 
+    @requested_zoom = 1.0
     @zoom = 1.0
     @zoom_mode = :manual
 
@@ -68,13 +69,13 @@ class Viewer
   def on_menu_zoom_in_activate
     @zoom_mode = :manual
     update_scrollbar_policy
-    set_zoom @zoom * 1.15
+    set_zoom @requested_zoom * 1.15
   end
 
   def on_menu_zoom_out_activate
     @zoom_mode = :manual
     update_scrollbar_policy
-    set_zoom @zoom / 1.15
+    set_zoom @requested_zoom / 1.15
   end
 
   def on_menu_zoom_fit_activate
@@ -86,18 +87,13 @@ class Viewer
   def on_menu_zoom_100_activate
     @zoom_mode = :manual
     update_scrollbar_policy
-    @zoom = 1.0
-    @image.pixbuf = @fullsize_buf
-    GC.start
+    set_zoom 1.0
   end
 
   def set_zoom new_zoom
     return if new_zoom <= 0.0
-    @zoom = new_zoom
-    b = @fullsize_buf.scale(@zoom * @fullsize_buf.width,
-			    @zoom * @fullsize_buf.height)
-    @image.pixbuf = b
-    GC.start
+    @requested_zoom = new_zoom
+    update_pixbuf
   end
 
   def update_image_fit
@@ -108,6 +104,19 @@ class Viewer
       1.0].min
 
     set_zoom zoom
+  end
+
+  def update_pixbuf
+    return if @zoom == @requested_zoom
+    if @requested_zoom == 1.0
+      @image.pixbuf = @fullsize_buf
+    else
+      b = @fullsize_buf.scale(@requested_zoom * @fullsize_buf.width,
+			      @requested_zoom * @fullsize_buf.height)
+      @image.pixbuf = b
+    end
+    @zoom = @requested_zoom
+    GC.start
   end
 
   def update_scrollbar_policy
