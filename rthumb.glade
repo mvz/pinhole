@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Fri Jan  2 22:54:20 2009 -->
+<!--Generated with glade3 3.4.5 on Sat Jan  3 21:34:15 2009 -->
 <glade-interface>
   <widget class="GtkWindow" id="mainwindow">
     <property name="title" translatable="yes">RThumb</property>
     <property name="default_width">500</property>
     <property name="default_height">400</property>
+    <signal name="configure_event" handler="on_mainwindow_configure_event"/>
     <signal name="destroy" handler="on_mainwindow_destroy"/>
     <signal name="window_state_event" handler="on_mainwindow_window_state_event"/>
     <child>
@@ -208,6 +209,7 @@
               <widget class="GtkViewport" id="viewport">
                 <property name="visible">True</property>
                 <property name="resize_mode">GTK_RESIZE_QUEUE</property>
+                <property name="shadow_type">GTK_SHADOW_NONE</property>
                 <signal name="button_press_event" handler="on_viewport_button_press_event"/>
                 <signal name="motion_notify_event" handler="on_viewport_motion_notify_event"/>
                 <signal name="button_release_event" handler="on_viewport_button_release_event"/>

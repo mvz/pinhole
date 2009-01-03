@@ -48,12 +48,11 @@ class Viewer
     if e.new_window_state.fullscreen?
       @builder["menubar"].visible = false
       @builder["statusbar"].visible = false
-      @builder["scrolledwindow"].set_policy(:never, :never)
     else
       @builder["menubar"].visible = true
       @builder["statusbar"].visible = true
-      @builder["scrolledwindow"].set_policy(:automatic, :automatic)
     end
+    update_scrollbar_policy
   end
 
   def on_menu_fullscreen_activate
@@ -68,21 +67,25 @@ class Viewer
 
   def on_menu_zoom_in_activate
     @zoom_mode = :manual
+    update_scrollbar_policy
     set_zoom @zoom * 1.15
   end
 
   def on_menu_zoom_out_activate
     @zoom_mode = :manual
+    update_scrollbar_policy
     set_zoom @zoom / 1.15
   end
 
   def on_menu_zoom_fit_activate
     @zoom_mode = :fit
+    update_scrollbar_policy
     update_image_fit
   end
 
   def on_menu_zoom_100_activate
     @zoom_mode = :manual
+    update_scrollbar_policy
     @zoom = 1.0
     @image.pixbuf = @fullsize_buf
     GC.start
@@ -105,6 +108,14 @@ class Viewer
       1.0].min
 
     set_zoom zoom
+  end
+
+  def update_scrollbar_policy
+    if @fullscreen or @zoom_mode == :fit
+      @builder["scrolledwindow"].set_policy(:never, :never)
+    else
+      @builder["scrolledwindow"].set_policy(:automatic, :automatic)
+    end
   end
 
   def on_viewport_button_press_event w, e
@@ -133,6 +144,12 @@ class Viewer
 
     set_adjustment(viewport.hadjustment, @scrollx - dx)
     set_adjustment(viewport.vadjustment, @scrolly - dy)
+  end
+
+  def on_mainwindow_configure_event
+  #  if @zoom_mode == :fit
+  #    update_image_fit
+  #  end
   end
 
   def set_adjustment adj, val
