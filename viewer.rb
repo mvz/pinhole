@@ -25,6 +25,8 @@ class Viewer
     @zoom = 1.0
     @zoom_mode = :manual
 
+    #Gtk.idle_add { puts "Hello" }
+
     @window.show_all
     Gtk.main
   end
@@ -81,7 +83,7 @@ class Viewer
   def on_menu_zoom_fit_activate
     @zoom_mode = :fit
     update_scrollbar_policy
-    update_image_fit
+    set_zoom image_fit_zoom
   end
 
   def on_menu_zoom_100_activate
@@ -96,14 +98,14 @@ class Viewer
     update_pixbuf
   end
 
-  def update_image_fit
+  def image_fit_zoom
     alloc = @builder["scrolledwindow"].allocation
     
     zoom = [(1.0 * alloc.width) / @fullsize_buf.width,
       (1.0 * alloc.height) / @fullsize_buf.height,
       1.0].min
 
-    set_zoom zoom
+    return zoom
   end
 
   def update_pixbuf
@@ -156,9 +158,11 @@ class Viewer
   end
 
   def on_mainwindow_configure_event
-  #  if @zoom_mode == :fit
-  #    update_image_fit
-  #  end
+    if @zoom_mode == :fit
+      @requested_zoom = image_fit_zoom
+      Gtk.idle_add { update_pixbuf }
+    end
+    return false
   end
 
   def set_adjustment adj, val
