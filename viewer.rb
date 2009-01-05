@@ -114,7 +114,8 @@ class Viewer
       @image.pixbuf = @fullsize_buf
     else
       b = @fullsize_buf.scale(@requested_zoom * @fullsize_buf.width,
-			      @requested_zoom * @fullsize_buf.height)
+			      @requested_zoom * @fullsize_buf.height,
+			      Gdk::Pixbuf::INTERP_BILINEAR)
       @image.pixbuf = b
     end
     @zoom = @requested_zoom
@@ -159,7 +160,17 @@ class Viewer
 
   def on_viewport_size_allocate
     if @zoom_mode == :fit
-      @requested_zoom = image_fit_zoom
+      new_zoom = image_fit_zoom
+      return true if new_zoom == @requested_zoom
+      @requested_zoom = new_zoom
+
+      # Trick from Eye of Gnome: do fast scale now ...
+      b = @fullsize_buf.scale(@requested_zoom * @fullsize_buf.width,
+			      @requested_zoom * @fullsize_buf.height,
+			      Gdk::Pixbuf::INTERP_NEAREST)
+      @image.pixbuf = b
+
+      # ... and delay slow scale till later.
       Gtk.idle_add { update_pixbuf }
     end
     return true
