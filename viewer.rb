@@ -14,20 +14,14 @@ class Viewer
     @fullscreen = false
 
     @window = @builder["mainwindow"]
-    @mainbox = @builder["eventbox"]
 
     @fullsize_buf = Gdk::Pixbuf.new(@filename) #, 1024, 768)
     @image = Gtk::Image.new
-    @image.pixbuf = @fullsize_buf
-    @mainbox.add(@image)
-
-    @requested_zoom = 1.0
-    @zoom = 1.0
-    @zoom_mode = :manual
-
-    #Gtk.idle_add { puts "Hello" }
-
+    @builder["eventbox"].add(@image)
     @window.show_all
+
+    on_menu_zoom_fit_activate
+
     Gtk.main
   end
 
