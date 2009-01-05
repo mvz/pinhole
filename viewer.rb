@@ -157,12 +157,12 @@ class Viewer
     set_adjustment(viewport.vadjustment, @scrolly - dy)
   end
 
-  def on_mainwindow_configure_event
+  def on_viewport_size_allocate
     if @zoom_mode == :fit
       @requested_zoom = image_fit_zoom
       Gtk.idle_add { update_pixbuf }
     end
-    return false
+    return true
   end
 
   def set_adjustment adj, val
