@@ -2,6 +2,9 @@ require 'optparse'
 require 'gtk2'
 
 class Viewer
+
+  COLOR_BLACK = Gdk::Color.new(0, 0, 0)
+
   def initialize(filename)
     @filename = filename
   end
@@ -45,8 +48,10 @@ class Viewer
     if e.new_window_state.fullscreen?
       @builder["menubar"].visible = false
       @builder["statusbar"].visible = false
+      @builder["eventbox"].modify_bg Gtk::STATE_NORMAL, COLOR_BLACK
       @fullscreen = true
     else
+      @builder["eventbox"].modify_bg Gtk::STATE_NORMAL, nil
       @builder["menubar"].visible = true
       @builder["statusbar"].visible = true
       @fullscreen = false
