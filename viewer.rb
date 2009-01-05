@@ -45,19 +45,19 @@ class Viewer
     if e.new_window_state.fullscreen?
       @builder["menubar"].visible = false
       @builder["statusbar"].visible = false
+      @fullscreen = true
     else
       @builder["menubar"].visible = true
       @builder["statusbar"].visible = true
+      @fullscreen = false
     end
     update_scrollbar_policy
   end
 
   def on_menu_fullscreen_activate
     if @fullscreen then
-      @fullscreen = false
       @window.unfullscreen
     else
-      @fullscreen = true
       @window.fullscreen
     end
   end
