@@ -1,5 +1,6 @@
 require 'optparse'
 require 'gtk2'
+require 'image'
 
 class Viewer
 
