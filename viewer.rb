@@ -52,7 +52,6 @@ class Viewer
       @scrolledwindow.unfullscreen
       @fullscreen = false
     end
-    update_scrollbar_policy
   end
 
   def on_menu_fullscreen_activate
@@ -77,68 +76,6 @@ class Viewer
 
   def on_menu_zoom_100_activate
     @scrolledwindow.zoom_100
-  end
-
-  def set_zoom new_zoom
-    @scrolledwindow.set_zoom new_zoom
-  end
-
-  def image_fit_zoom
-    @scrolledwindow.image_fit_zoom
-  end
-
-  # TODO: deprecate
-  def update_scrollbar_policy
-    @scrolledwindow.update_scrollbar_policy
-  end
-
-  def on_viewport_button_press_event w, e
-    @dragging = true
-    @dragx = e.x_root
-    @dragy = e.y_root
-
-    @scrollx = @viewport.hadjustment.value
-    @scrolly = @viewport.vadjustment.value
-    @viewport.window.cursor = Gdk::Cursor.new(Gdk::Cursor::FLEUR)
-  end
-
-  def on_viewport_button_release_event w, e
-    @dragging = false
-    @viewport.window.cursor = nil
-  end
-
-  def on_viewport_motion_notify_event w, e
-    return false unless @dragging
-    dx = e.x_root - @dragx
-    dy = e.y_root - @dragy
-
-    set_adjustment(@viewport.hadjustment, @scrollx - dx)
-    set_adjustment(@viewport.vadjustment, @scrolly - dy)
-  end
-
-  def on_viewport_size_allocate
-    if @zoom_mode == :fit
-      new_zoom = image_fit_zoom
-      return true if new_zoom == @requested_zoom
-      @requested_zoom = new_zoom
-
-      # Trick from Eye of Gnome: do fast scale now ...
-      b = @fullsize_buf.scale(@requested_zoom * @fullsize_buf.width,
-			      @requested_zoom * @fullsize_buf.height,
-			      Gdk::Pixbuf::INTERP_NEAREST)
-      @image.pixbuf = b
-
-      # ... and delay slow scale till later.
-      Gtk.idle_add { @scrolledwindow.update_pixbuf }
-    end
-    return true
-  end
-
-  def set_adjustment adj, val
-    max = adj.upper - adj.page_size
-    val = max if val > max
-    val = 0 if val < 0
-    adj.value = val
   end
 end
 
