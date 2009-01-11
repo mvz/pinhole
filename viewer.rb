@@ -41,6 +41,7 @@ class Viewer
     @eventbox = Gtk::EventBox.new
     @scrolledwindow.add_with_viewport(@eventbox)
     @viewport = @scrolledwindow.child
+    @viewport.shadow_type = Gtk::ShadowType::NONE
 
     # This line is needed to prevent the viewport from forcing a minimum
     # size on the window when the scroll bars are not visible
