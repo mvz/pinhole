@@ -5,6 +5,7 @@ task :default => [:interface, :test]
 desc "Build interface"
 task :interface do
   `gtk-builder-convert rthumb.glade rthumb.xml`
+  `gtk-builder-convert browser.glade browser.xml`
 end
 
 desc "Perform test run"
