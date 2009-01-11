@@ -20,6 +20,8 @@ class Browser
       @store.append.set_value(0, f).set_value(1, pb)
     }
 
+    @iconview.set_size_request(0,0)
+
     @iconview.model = @store
     @iconview.text_column = 0
     @iconview.pixbuf_column = 1
