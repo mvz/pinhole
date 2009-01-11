@@ -3,9 +3,6 @@ require 'gtk2'
 require 'image'
 
 class Viewer
-
-  COLOR_BLACK = Gdk::Color.new(0, 0, 0)
-
   def initialize(filename)
     @filename = filename
   end
@@ -19,9 +16,7 @@ class Viewer
 
     @window = @builder["mainwindow"]
 
-    @fullsize_buf = Gdk::Pixbuf.new(@filename) #, 1024, 768)
-    @image = Gtk::Image.new
-    @eventbox.add(@image)
+    @scrolledwindow.load_image_from_file(@filename)
     @window.show_all
 
     on_menu_zoom_fit_activate
@@ -36,16 +31,9 @@ class Viewer
     @builder.add "rthumb.xml"
     @builder.connect_signals { |name| method(name) }
 
-    @scrolledwindow = Gtk::ScrolledWindow.new
-    @builder["mainvbox"].pack_start(@scrolledwindow)
-    @eventbox = Gtk::EventBox.new
-    @scrolledwindow.add_with_viewport(@eventbox)
-    @viewport = @scrolledwindow.child
-    @viewport.shadow_type = Gtk::ShadowType::NONE
+    @scrolledwindow = Image.new
 
-    # This line is needed to prevent the viewport from forcing a minimum
-    # size on the window when the scroll bars are not visible
-    @viewport.set_size_request(0,0)
+    @builder["mainvbox"].pack_start(@scrolledwindow)
   end
 
   def on_mainwindow_destroy
@@ -56,12 +44,12 @@ class Viewer
     if e.new_window_state.fullscreen?
       @builder["menubar"].visible = false
       @builder["statusbar"].visible = false
-      @eventbox.modify_bg Gtk::STATE_NORMAL, COLOR_BLACK
+      @scrolledwindow.fullscreen
       @fullscreen = true
     else
-      @eventbox.modify_bg Gtk::STATE_NORMAL, nil
       @builder["menubar"].visible = true
       @builder["statusbar"].visible = true
+      @scrolledwindow.unfullscreen
       @fullscreen = false
     end
     update_scrollbar_policy
@@ -76,65 +64,32 @@ class Viewer
   end
 
   def on_menu_zoom_in_activate
-    @zoom_mode = :manual
-    update_scrollbar_policy
-    set_zoom @requested_zoom * 1.15
+    @scrolledwindow.zoom_in
   end
 
   def on_menu_zoom_out_activate
-    @zoom_mode = :manual
-    update_scrollbar_policy
-    set_zoom @requested_zoom / 1.15
+    @scrolledwindow.zoom_out
   end
 
   def on_menu_zoom_fit_activate
-    @zoom_mode = :fit
-    update_scrollbar_policy
-    set_zoom image_fit_zoom
+    @scrolledwindow.zoom_fit
   end
 
   def on_menu_zoom_100_activate
-    @zoom_mode = :manual
-    update_scrollbar_policy
-    set_zoom 1.0
+    @scrolledwindow.zoom_100
   end
 
   def set_zoom new_zoom
-    return if new_zoom <= 0.0
-    @requested_zoom = new_zoom
-    update_pixbuf
+    @scrolledwindow.set_zoom new_zoom
   end
 
   def image_fit_zoom
-    alloc = @scrolledwindow.allocation
-    
-    zoom = [(1.0 * alloc.width) / @fullsize_buf.width,
-      (1.0 * alloc.height) / @fullsize_buf.height,
-      1.0].min
-
-    return zoom
+    @scrolledwindow.image_fit_zoom
   end
 
-  def update_pixbuf
-    return if @zoom == @requested_zoom
-    if @requested_zoom == 1.0
-      @image.pixbuf = @fullsize_buf
-    else
-      b = @fullsize_buf.scale(@requested_zoom * @fullsize_buf.width,
-			      @requested_zoom * @fullsize_buf.height,
-			      Gdk::Pixbuf::INTERP_BILINEAR)
-      @image.pixbuf = b
-    end
-    @zoom = @requested_zoom
-    GC.start
-  end
-
+  # TODO: deprecate
   def update_scrollbar_policy
-    if @fullscreen or @zoom_mode == :fit
-      @scrolledwindow.set_policy(:never, :never)
-    else
-      @scrolledwindow.set_policy(:automatic, :automatic)
-    end
+    @scrolledwindow.update_scrollbar_policy
   end
 
   def on_viewport_button_press_event w, e
@@ -174,7 +129,7 @@ class Viewer
       @image.pixbuf = b
 
       # ... and delay slow scale till later.
-      Gtk.idle_add { update_pixbuf }
+      Gtk.idle_add { @scrolledwindow.update_pixbuf }
     end
     return true
   end
