@@ -15,6 +15,11 @@ class Browser
 
     @store = Gtk::ListStore.new(String, Gdk::Pixbuf)
 
+    Dir.glob("*.jpg").each { |f|
+      pb = Gdk::Pixbuf.new(f, 100, 100)
+      @store.append.set_value(0, f).set_value(1, pb)
+    }
+
     @iconview.model = @store
     @iconview.text_column = 0
     @iconview.pixbuf_column = 1
