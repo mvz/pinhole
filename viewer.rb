@@ -21,7 +21,7 @@ class Viewer
 
     @fullsize_buf = Gdk::Pixbuf.new(@filename) #, 1024, 768)
     @image = Gtk::Image.new
-    @builder["eventbox"].add(@image)
+    @eventbox.add(@image)
     @window.show_all
 
     on_menu_zoom_fit_activate
@@ -36,9 +36,15 @@ class Viewer
     @builder.add "rthumb.xml"
     @builder.connect_signals { |name| method(name) }
 
+    @scrolledwindow = Gtk::ScrolledWindow.new
+    @builder["mainvbox"].pack_start(@scrolledwindow)
+    @eventbox = Gtk::EventBox.new
+    @scrolledwindow.add_with_viewport(@eventbox)
+    @viewport = @scrolledwindow.child
+
     # This line is needed to prevent the viewport from forcing a minimum
     # size on the window when the scroll bars are not visible
-    @builder["viewport"].set_size_request(0,0)
+    @viewport.set_size_request(0,0)
   end
 
   def on_mainwindow_destroy
@@ -49,10 +55,10 @@ class Viewer
     if e.new_window_state.fullscreen?
       @builder["menubar"].visible = false
       @builder["statusbar"].visible = false
-      @builder["eventbox"].modify_bg Gtk::STATE_NORMAL, COLOR_BLACK
+      @eventbox.modify_bg Gtk::STATE_NORMAL, COLOR_BLACK
       @fullscreen = true
     else
-      @builder["eventbox"].modify_bg Gtk::STATE_NORMAL, nil
+      @eventbox.modify_bg Gtk::STATE_NORMAL, nil
       @builder["menubar"].visible = true
       @builder["statusbar"].visible = true
       @fullscreen = false
@@ -99,7 +105,7 @@ class Viewer
   end
 
   def image_fit_zoom
-    alloc = @builder["scrolledwindow"].allocation
+    alloc = @scrolledwindow.allocation
     
     zoom = [(1.0 * alloc.width) / @fullsize_buf.width,
       (1.0 * alloc.height) / @fullsize_buf.height,
@@ -124,9 +130,9 @@ class Viewer
 
   def update_scrollbar_policy
     if @fullscreen or @zoom_mode == :fit
-      @builder["scrolledwindow"].set_policy(:never, :never)
+      @scrolledwindow.set_policy(:never, :never)
     else
-      @builder["scrolledwindow"].set_policy(:automatic, :automatic)
+      @scrolledwindow.set_policy(:automatic, :automatic)
     end
   end
 
@@ -135,16 +141,14 @@ class Viewer
     @dragx = e.x_root
     @dragy = e.y_root
 
-    viewport = @builder["viewport"]
-
-    @scrollx = viewport.hadjustment.value
-    @scrolly = viewport.vadjustment.value
-    viewport.window.cursor = Gdk::Cursor.new(Gdk::Cursor::FLEUR)
+    @scrollx = @viewport.hadjustment.value
+    @scrolly = @viewport.vadjustment.value
+    @viewport.window.cursor = Gdk::Cursor.new(Gdk::Cursor::FLEUR)
   end
 
   def on_viewport_button_release_event w, e
     @dragging = false
-    @builder["viewport"].window.cursor = nil
+    @viewport.window.cursor = nil
   end
 
   def on_viewport_motion_notify_event w, e
@@ -152,10 +156,8 @@ class Viewer
     dx = e.x_root - @dragx
     dy = e.y_root - @dragy
 
-    viewport = @builder["viewport"]
-
-    set_adjustment(viewport.hadjustment, @scrollx - dx)
-    set_adjustment(viewport.vadjustment, @scrolly - dy)
+    set_adjustment(@viewport.hadjustment, @scrollx - dx)
+    set_adjustment(@viewport.vadjustment, @scrolly - dy)
   end
 
   def on_viewport_size_allocate

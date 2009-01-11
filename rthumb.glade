@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Mon Jan  5 19:58:21 2009 -->
+<!--Generated with glade3 3.4.5 on Sun Jan 11 07:20:14 2009 -->
 <glade-interface>
   <widget class="GtkWindow" id="mainwindow">
     <property name="title" translatable="yes">RThumb</property>
@@ -199,34 +199,7 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkScrolledWindow" id="scrolledwindow">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-            <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-            <child>
-              <widget class="GtkViewport" id="viewport">
-                <property name="visible">True</property>
-                <property name="resize_mode">GTK_RESIZE_QUEUE</property>
-                <property name="shadow_type">GTK_SHADOW_NONE</property>
-                <signal name="button_press_event" handler="on_viewport_button_press_event"/>
-                <signal name="motion_notify_event" handler="on_viewport_motion_notify_event"/>
-                <signal name="button_release_event" handler="on_viewport_button_release_event"/>
-                <signal name="size_allocate" handler="on_viewport_size_allocate"/>
-                <child>
-                  <widget class="GtkEventBox" id="eventbox">
-                    <property name="visible">True</property>
-                    <child>
-                      <placeholder/>
-                    </child>
-                  </widget>
-                </child>
-              </widget>
-            </child>
-          </widget>
-          <packing>
-            <property name="position">1</property>
-          </packing>
+          <placeholder/>
         </child>
         <child>
           <widget class="GtkStatusbar" id="statusbar">
@@ -235,6 +208,7 @@
           </widget>
           <packing>
             <property name="expand">False</property>
+            <property name="pack_type">GTK_PACK_END</property>
             <property name="position">2</property>
           </packing>
         </child>
