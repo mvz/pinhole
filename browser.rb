@@ -16,6 +16,10 @@ module Pinhole
     def model= m
       @iconview.model = m
     end
+
+    def set_action &block
+      @iconview.signal_connect "item-activated", &block
+    end
   end
 end
 
@@ -29,6 +33,9 @@ class Browser
 
     @browser = Pinhole::Browser.new
 
+    @browser.set_action do |iv, path|
+      p iv.model.get_iter(path).get_value(0)
+    end
     @builder["mainvbox"].pack_start(@browser)
 
     @store = Gtk::ListStore.new(String, Gdk::Pixbuf)
