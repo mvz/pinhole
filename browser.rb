@@ -24,6 +24,10 @@ module Pinhole
 end
 
 class Browser
+  def initialize(provider)
+    @provider = provider
+  end
+
   def run
     Gtk.init
 
@@ -40,7 +44,7 @@ class Browser
 
     @store = Gtk::ListStore.new(String, Gdk::Pixbuf)
 
-    Dir.glob("*.jpg").each { |f|
+    @provider.each { |f|
       pb = Gdk::Pixbuf.new(f, 100, 100)
       @store.append.set_value(0, f).set_value(1, pb)
     }
@@ -65,4 +69,4 @@ class Browser
   end
 end
 
-Browser.new.run
+Browser.new(Dir.glob("*.jpg")).run
