@@ -3,7 +3,4 @@
 require File.expand_path(
     File.join(File.dirname(__FILE__), %w[.. lib pinhole]))
 
-Browser.new(Dir.glob("*.jpg")).run
-# Put your code here
-
-# EOF
+Pinhole::MainWindow.new(Dir.glob("*.jpg")).run
