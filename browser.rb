@@ -60,12 +60,30 @@ class Browser
 
   def setup_ui
     @builder = Gtk::Builder.new
-    @builder.add "browser.xml"
+    @builder.add "rthumb.xml"
     @builder.connect_signals { |name| method(name) }
   end
 
   def on_mainwindow_destroy
     Gtk.main_quit
+  end
+
+  def on_mainwindow_window_state_event w, e
+  end
+
+  def on_menu_fullscreen_activate
+  end
+
+  def on_menu_zoom_in_activate
+  end
+
+  def on_menu_zoom_out_activate
+  end
+
+  def on_menu_zoom_fit_activate
+  end
+
+  def on_menu_zoom_100_activate
   end
 end
 
