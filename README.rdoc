@@ -1,0 +1,38 @@
+pinhole
+    by Matijs van Zuijlen
+    http://www.matijs.net/
+
+== DESCRIPTION:
+
+Pinhole is an image collection browser for Gnome.
+
+== FEATURES/PROBLEMS:
+
+* The collection of images is found by asking Tracker.
+* Pinhole does not have its own database: All data is stored in the images
+  themselves, and Pinhole relies on Tracker.
+* Pinhole does currently not do image editing out of the box.
+* Behavior shall be configurable throught the use of plug-ins. For example,
+  another metadata store (such as Beagle) may be used instead.
+
+== SYNOPSIS:
+
+  pinhole
+
+== REQUIREMENTS:
+
+* ruby-gnome2
+* Tracker
+* dbus 
+
+== INSTALL:
+
+sude gem install pinhole
+
+== LICENSE:
+
+Copyright (c) 2009 Matijs van Zuijlen
+
+Pinhole is free software, distributed under the terms of the GNU General
+Public License, version 2 or later. See the file COPYING for more
+information.
