@@ -10,6 +10,8 @@
 # exclude patterns (uncomment them if you want to use them):
 # *.[oa]
 # *~
+.*.swp
+*.jpg
 announcement.txt
 coverage
 doc
