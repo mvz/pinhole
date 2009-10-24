@@ -15,19 +15,24 @@ module Pinhole
       @box = @builder["mainvbox"]
 
       @browser = Browser.new
+      @image = Image.new
+
+      @box.pack_start(@browser)
+      @box.pack_start(@image)
+
+      @active_widget = @browser
 
       @browser.set_action do |iv, path|
 	filename = iv.model.get_iter(path).get_value(0)
 	@image.load_image_from_file(filename)
-	# TODO: Use visible = true/false instead.
-	@box.remove @browser
-	@box.pack_start @image
+
+	@browser.visible = false
+	@image.visible = true
+	@active_widget = @image
+
 	@image.zoom_fit
 	@image.show_all
-	@active_widget = @image
       end
-
-      @box.pack_start(@browser)
 
       @store = Gtk::ListStore.new(String, Gdk::Pixbuf)
 
@@ -38,9 +43,10 @@ module Pinhole
 
       @browser.model = @store
 
-      @active_widget = @browser
-
       @window.show_all
+
+      @browser.visible = true
+      @image.visible = false
 
       Gtk.main
     end
@@ -51,7 +57,6 @@ module Pinhole
       @builder = Gtk::Builder.new
       @builder.add Pinhole.path "data", "pinhole.xml"
       @builder.connect_signals { |name| method(name) }
-      @image = Image.new
     end
 
     def on_mainwindow_destroy
