@@ -55,7 +55,7 @@ module Pinhole
 
     def setup_ui
       @builder = Gtk::Builder.new
-      @builder.add Pinhole.path "data", "pinhole.xml"
+      @builder.add Pinhole.path "data", "pinhole.ui"
       @builder.connect_signals { |name| method(name) }
     end
 
