@@ -31,8 +31,7 @@ PROJ.spec.opts << '--color'
 
 desc "Build interface"
 task :interface do
-  `gtk-builder-convert rthumb.glade rthumb.xml`
-  `gtk-builder-convert browser.glade browser.xml`
+  `gtk-builder-convert data/pinhole.glade data/pinhole.xml`
 end
 
 desc "Perform test run"
