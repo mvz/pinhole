@@ -60,7 +60,7 @@ class Browser
 
   def setup_ui
     @builder = Gtk::Builder.new
-    @builder.add "rthumb.xml"
+    @builder.add Pinhole.path "data", "pinhole.xml"
     @builder.connect_signals { |name| method(name) }
   end
 
@@ -86,5 +86,3 @@ class Browser
   def on_menu_zoom_100_activate
   end
 end
-
-Browser.new(Dir.glob("*.jpg")).run
