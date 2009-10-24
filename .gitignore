@@ -1,6 +1,5 @@
 .*.swp
-rthumb.xml
-browser.xml
+data/pinhole.xml
 notes.txt
 pkg
 doc
