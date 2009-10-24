@@ -36,8 +36,7 @@ end
 
 desc "Perform test run"
 task :testrun => [:interface] do
-  #`ruby viewer.rb _DSC2502.jpg`
-  `ruby viewer.rb p1013366.jpg`
+  `./bin/pinhole`
 end
 
 #Rake::TestTask.new do |t|
