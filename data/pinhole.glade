@@ -3,7 +3,7 @@
 <!--Generated with glade3 3.4.5 on Sun Jan 11 07:20:14 2009 -->
 <glade-interface>
   <widget class="GtkWindow" id="mainwindow">
-    <property name="title" translatable="yes">RThumb</property>
+    <property name="title" translatable="yes">Pinhole</property>
     <property name="default_width">500</property>
     <property name="default_height">400</property>
     <signal name="destroy" handler="on_mainwindow_destroy"/>
