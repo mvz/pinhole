@@ -100,6 +100,12 @@ module Pinhole
     def on_menu_zoom_100_activate
       @active_widget.zoom_100
     end
+
+    def on_menu_cancel_activate
+      @image.visible = false
+      @browser.visible = true
+      @active_widget = @browser
+    end
   end
 end
 
