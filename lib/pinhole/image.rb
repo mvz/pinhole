@@ -16,23 +16,32 @@ module Pinhole
 
       setup_viewport_signal_handlers
 
+      @zoom_mode = :manual
+      @current_zoom = @wanted_zoom = 1.0
+
       @image = Gtk::Image.new
+      @fullsize_buf = Gdk::Pixbuf.new(
+	Gdk::Pixbuf::COLORSPACE_RGB, false, 8, 1, 1)
       @eventbox.add(@image)
     end
 
+    private
+
     def update_pixbuf
-      return if @zoom == @new_zoom
-      if @new_zoom == 1.0
+      return if @current_zoom == @wanted_zoom
+      if @wanted_zoom == 1.0
 	@image.pixbuf = @fullsize_buf
       else
-	b = @fullsize_buf.scale(@new_zoom * @fullsize_buf.width,
-				@new_zoom * @fullsize_buf.height,
+	b = @fullsize_buf.scale(@wanted_zoom * @fullsize_buf.width,
+				@wanted_zoom * @fullsize_buf.height,
 				Gdk::Pixbuf::INTERP_BILINEAR)
 	@image.pixbuf = b
       end
-      @zoom = @new_zoom
+      @current_zoom = @wanted_zoom
       GC.start
     end
+
+    public
 
     def fullscreen
       @eventbox.modify_bg Gtk::STATE_NORMAL, COLOR_BLACK
@@ -53,13 +62,13 @@ module Pinhole
     def zoom_in
       @zoom_mode = :manual
       update_scrollbar_policy
-      set_zoom @new_zoom * 1.15
+      set_zoom @wanted_zoom * 1.15
     end
 
     def zoom_out
       @zoom_mode = :manual
       update_scrollbar_policy
-      set_zoom @new_zoom / 1.15
+      set_zoom @wanted_zoom / 1.15
     end
 
     def zoom_fit
@@ -84,7 +93,7 @@ module Pinhole
 
     def set_zoom zoom
       return if zoom <= 0.0
-      @new_zoom = zoom
+      @wanted_zoom = zoom
       update_pixbuf
     end
 
@@ -141,12 +150,12 @@ module Pinhole
     def on_viewport_size_allocate
       if @zoom_mode == :fit
 	zoom = image_fit_zoom
-	return true if zoom == @new_zoom
-	@new_zoom = zoom
+	return true if zoom == @wanted_zoom
+	@wanted_zoom = zoom
 
 	# Trick from Eye of Gnome: do fast scale now ...
-	b = @fullsize_buf.scale(@new_zoom * @fullsize_buf.width,
-				@new_zoom * @fullsize_buf.height,
+	b = @fullsize_buf.scale(@wanted_zoom * @fullsize_buf.width,
+				@wanted_zoom * @fullsize_buf.height,
 				Gdk::Pixbuf::INTERP_NEAREST)
 	@image.pixbuf = b
 
