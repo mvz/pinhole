@@ -19,6 +19,13 @@ module Pinhole
     def set_action &block
       @iconview.signal_connect "item-activated", &block
     end
+
+    def unfullscreen; end
+    def fullscreen; end
+    def zoom_in; end
+    def zoom_out; end
+    def zoom_100; end
+    def zoom_fit; end
   end
 end
 
