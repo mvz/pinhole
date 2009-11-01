@@ -8,7 +8,7 @@ module Pinhole
       self.add @iconview
       self.set_policy(:automatic, :automatic)
       @iconview.set_size_request 0, 0
-      @iconview.text_column = 0
+      @iconview.text_column = 2
       @iconview.pixbuf_column = 1
     end
 

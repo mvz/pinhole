@@ -34,11 +34,12 @@ module Pinhole
 	@image.show_all
       end
 
-      @store = Gtk::ListStore.new(String, Gdk::Pixbuf)
+      @store = Gtk::ListStore.new(String, Gdk::Pixbuf, String)
 
       @provider.each { |f|
 	pb = Gdk::Pixbuf.new(f, 100, 100)
-	@store.append.set_value(0, f).set_value(1, pb)
+	@store.append.set_value(0, f).
+	  set_value(1, pb).set_value(2, File.basename(f))
       }
 
       @browser.model = @store
