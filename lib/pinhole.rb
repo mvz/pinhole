@@ -1,5 +1,6 @@
 require 'gir_ffi'
 
+# FIXME: Make gir_ffi load everything as global.
 GlobalGtk = FFI::DynamicLibrary.open(
   FFI.map_library_name('gtk-x11-2.0'),
   FFI::DynamicLibrary::RTLD_LAZY | FFI::DynamicLibrary::RTLD_GLOBAL)

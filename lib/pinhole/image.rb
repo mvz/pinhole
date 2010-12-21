@@ -1,6 +1,7 @@
 module Pinhole
   class Image < Gtk::ScrolledWindow
 
+    # FIXME: Create appropriate Color constructor.
     #COLOR_BLACK = Gdk::Color.new(0, 0, 0)
 
     def initialize
@@ -44,6 +45,7 @@ module Pinhole
     public
 
     def fullscreen
+      # FIXME: Restore once black is defined.
       #@eventbox.modify_bg Gtk::STATE_NORMAL, COLOR_BLACK
       @fullscreen = true
       update_scrollbar_policy
