@@ -1,7 +1,7 @@
 module Pinhole
   class Image < Gtk::ScrolledWindow
 
-    COLOR_BLACK = Gdk::Color.new(0, 0, 0)
+    #COLOR_BLACK = Gdk::Color.new(0, 0, 0)
 
     def initialize
       super
@@ -44,7 +44,7 @@ module Pinhole
     public
 
     def fullscreen
-      @eventbox.modify_bg Gtk::STATE_NORMAL, COLOR_BLACK
+      #@eventbox.modify_bg Gtk::STATE_NORMAL, COLOR_BLACK
       @fullscreen = true
       update_scrollbar_policy
     end
