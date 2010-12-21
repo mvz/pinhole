@@ -1,19 +1,17 @@
+require 'forwardable'
 module Pinhole
-  class Browser < Gtk::ScrolledWindow
-    # TODO: Shouldn't have to define #new on subclasses!
-    def self.new h=nil, v=nil
-      inst = super h, v
-      inst.send :initialize
-      inst
-    end
+  class Browser
+    extend Forwardable
+    def_delegators :@widget, :to_ptr
 
     def initialize
+      @widget = Gtk::ScrolledWindow.new nil, nil
       @iconview = Gtk::IconView.new
-      self.add @iconview
-      self.set_policy(:automatic, :automatic)
+      @widget.add @iconview
+      @widget.set_policy(:automatic, :automatic)
       @iconview.set_size_request 0, 0
-      @iconview.text_column = 2
-      @iconview.pixbuf_column = 1
+      @iconview.set_text_column 2
+      @iconview.set_pixbuf_column 1
     end
 
     def model= m

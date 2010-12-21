@@ -1,21 +1,18 @@
+require 'forwardable'
 module Pinhole
-  class Image < Gtk::ScrolledWindow
+  class Image
+    extend Forwardable
+    def_delegators :@widget, :to_ptr
 
     # FIXME: Create appropriate Color constructor.
     #COLOR_BLACK = Gdk::Color.new(0, 0, 0)
 
-    # TODO: Shouldn't have to define #new on subclasses!
-    def self.new h=nil, v=nil
-      inst = super h, v
-      inst.send :initialize
-      inst
-    end
-
     def initialize
+      @widget = Gtk::ScrolledWindow.new nil, nil
       @eventbox = Gtk::EventBox.new
-      self.add_with_viewport(@eventbox)
-      @viewport = self.child
-      @viewport.shadow_type = Gtk::ShadowType::NONE
+      @widget.add_with_viewport(@eventbox)
+      @viewport = Gtk::Viewport.send :_real_new, @widget.get_child.to_ptr
+      @viewport.set_shadow_type :none
 
       # This line is needed to prevent the viewport from forcing a minimum
       # size on the window when the scroll bars are not visible
