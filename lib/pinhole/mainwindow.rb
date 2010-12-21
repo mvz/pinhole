@@ -55,7 +55,18 @@ module Pinhole
     def setup_ui
       @builder = Gtk::Builder.new
       @builder.add_from_file Pinhole.path "data", "pinhole.ui"
-      @builder.connect_signals { |name| method(name) }
+      @builder.connect_signals_full Proc.new { |b,o,sn,hn,co,f,ud|
+	sn.gsub! /_/, '-'
+	GObject.signal_connect cast_object_pointer(o), sn, self.method(hn)
+      }, nil
+    end
+
+    def cast_object_pointer optr
+      tp = GObject.type_from_instance_pointer optr
+      gir = GirFFI::IRepository.default
+      info = gir.find_by_gtype tp
+      klass = GirFFI::Builder.build_class info.namespace, info.name
+      klass.send :_real_new, optr
     end
 
     def on_mainwindow_destroy
