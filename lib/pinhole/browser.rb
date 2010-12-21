@@ -19,7 +19,7 @@ module Pinhole
     end
 
     def set_action &block
-      @iconview.signal_connect "item-activated", &block
+      GObject.signal_connect @iconview, "item-activated", &block
     end
 
     def unfullscreen; end
