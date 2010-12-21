@@ -111,19 +111,19 @@ module Pinhole
     end
 
     def setup_viewport_signal_handlers
-      @viewport.signal_connect "button-press-event" do |w, e|
+      GObject.signal_connect @viewport, "button-press-event" do |w, e|
 	on_viewport_button_press_event w, e
       end
 
-      @viewport.signal_connect "button-release-event" do |w, e|
+      GObject.signal_connect @viewport, "button-release-event" do |w, e|
 	on_viewport_button_release_event w, e
       end
 
-      @viewport.signal_connect "motion-notify-event" do |w, e|
+      GObject.signal_connect @viewport, "motion-notify-event" do |w, e|
 	on_viewport_motion_notify_event w, e
       end
 
-      @viewport.signal_connect "size-allocate" do
+      GObject.signal_connect @viewport, "size-allocate" do
 	on_viewport_size_allocate
       end
     end
