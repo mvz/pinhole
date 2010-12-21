@@ -1,5 +1,9 @@
 require 'gir_ffi'
 
+GlobalGtk = FFI::DynamicLibrary.open(
+  FFI.map_library_name('gtk-x11-2.0'),
+  FFI::DynamicLibrary::RTLD_LAZY | FFI::DynamicLibrary::RTLD_GLOBAL)
+
 GirFFI.setup :Gtk
 
 module Pinhole
