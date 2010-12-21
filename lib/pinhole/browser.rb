@@ -1,7 +1,13 @@
 module Pinhole
   class Browser < Gtk::ScrolledWindow
+    # TODO: Shouldn't have to define #new on subclasses!
+    def self.new h=nil, v=nil
+      inst = super h, v
+      inst.send :initialize
+      inst
+    end
+
     def initialize
-      super
       @iconview = Gtk::IconView.new
       self.add @iconview
       self.set_policy(:automatic, :automatic)
