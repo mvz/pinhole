@@ -9,8 +9,8 @@ module Pinhole
 
       setup_ui
 
-      @window = @builder["mainwindow"]
-      @box = @builder["mainvbox"]
+      @window = built_object("mainwindow")
+      @box = built_object("mainvbox")
 
       @browser = Browser.new
       @image = Image.new
@@ -71,19 +71,24 @@ module Pinhole
       klass.send :_real_new, optr
     end
 
+    # FIXME: Adjust Gtk::Builder#get_object
+    def built_object name
+      cast_object_pointer(@builder.get_object(name).to_ptr)
+    end
+
     def on_mainwindow_destroy
       Gtk.main_quit
     end
 
     def on_mainwindow_window_state_event w, e
       if e.new_window_state.fullscreen?
-	@builder["menubar"].visible = false
-	@builder["statusbar"].visible = false
+	built_object("menubar").visible = false
+	built_object("statusbar").visible = false
 	@active_widget.fullscreen
 	@fullscreen = true
       else
-	@builder["menubar"].visible = true
-	@builder["statusbar"].visible = true
+	built_object("menubar").visible = true
+	built_object("statusbar").visible = true
 	@active_widget.unfullscreen
 	@fullscreen = false
       end
