@@ -4,8 +4,14 @@ module Pinhole
     # FIXME: Create appropriate Color constructor.
     #COLOR_BLACK = Gdk::Color.new(0, 0, 0)
 
+    # TODO: Shouldn't have to define #new on subclasses!
+    def self.new h=nil, v=nil
+      inst = super h, v
+      inst.send :initialize
+      inst
+    end
+
     def initialize
-      super
       @eventbox = Gtk::EventBox.new
       self.add_with_viewport(@eventbox)
       @viewport = self.child
