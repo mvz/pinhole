@@ -1,5 +1,3 @@
-require 'gtk2'
-
 module Pinhole
   class Browser < Gtk::ScrolledWindow
     def initialize

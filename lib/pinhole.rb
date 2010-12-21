@@ -1,3 +1,6 @@
+require 'gir_ffi'
+
+GirFFI.setup :Gtk
 
 module Pinhole
 
