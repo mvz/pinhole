@@ -6,6 +6,7 @@ GlobalGtk = FFI::DynamicLibrary.open(
   FFI::DynamicLibrary::RTLD_LAZY | FFI::DynamicLibrary::RTLD_GLOBAL)
 
 GirFFI.setup :Gtk
+GirFFI.setup :GdkPixbuf
 
 module Pinhole
 

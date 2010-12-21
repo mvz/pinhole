@@ -24,8 +24,7 @@ module Pinhole
       @current_zoom = @wanted_zoom = 1.0
 
       @image = Gtk::Image.new
-      @fullsize_buf = Gdk::Pixbuf.new(
-	Gdk::Pixbuf::COLORSPACE_RGB, false, 8, 1, 1)
+      @fullsize_buf = GdkPixbuf::Pixbuf.new(:rgb, false, 8, 1, 1)
       @eventbox.add(@image)
     end
 
@@ -38,7 +37,7 @@ module Pinhole
       else
 	b = @fullsize_buf.scale(@wanted_zoom * @fullsize_buf.width,
 				@wanted_zoom * @fullsize_buf.height,
-				Gdk::Pixbuf::INTERP_BILINEAR)
+				:bilinear)
 	@image.pixbuf = b
       end
       @current_zoom = @wanted_zoom
@@ -61,7 +60,7 @@ module Pinhole
     end
 
     def load_image_from_file filename
-      @fullsize_buf = Gdk::Pixbuf.new(filename)
+      @fullsize_buf = GdkPixbuf::Pixbuf.new(filename)
     end
 
     def zoom_in
@@ -161,7 +160,7 @@ module Pinhole
 	# Trick from Eye of Gnome: do fast scale now ...
 	b = @fullsize_buf.scale(@wanted_zoom * @fullsize_buf.width,
 				@wanted_zoom * @fullsize_buf.height,
-				Gdk::Pixbuf::INTERP_NEAREST)
+				:nearest)
 	@image.pixbuf = b
 
 	# ... and delay slow scale till later.
