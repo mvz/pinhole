@@ -2,7 +2,7 @@ require 'forwardable'
 module Pinhole
   class Browser
     extend Forwardable
-    def_delegators :@widget, :to_ptr
+    def_delegators :@widget, :to_ptr, :set_visible
 
     def initialize
       @widget = Gtk::ScrolledWindow.new nil, nil
@@ -14,8 +14,8 @@ module Pinhole
       @iconview.set_pixbuf_column 1
     end
 
-    def model= m
-      @iconview.model = m
+    def set_model m
+      @iconview.set_model m
     end
 
     def set_action &block

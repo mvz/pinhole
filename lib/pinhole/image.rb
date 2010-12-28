@@ -2,7 +2,7 @@ require 'forwardable'
 module Pinhole
   class Image
     extend Forwardable
-    def_delegators :@widget, :to_ptr
+    def_delegators :@widget, :to_ptr, :set_visible
 
     # FIXME: Create appropriate Color constructor.
     #COLOR_BLACK = Gdk::Color.new(0, 0, 0)
