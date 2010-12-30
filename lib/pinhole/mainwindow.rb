@@ -77,25 +77,15 @@ module Pinhole
     def setup_ui
       @builder = Gtk::Builder.new
       @builder.add_from_file Pinhole.path "data", "pinhole.ui"
-      # FIXME: Add override to simplify this method call.
+      # FIXME: Perhaps add override to simplify this method call.
       @builder.connect_signals_full Proc.new { |b,o,sn,hn,co,f,ud|
 	sn.gsub! /_/, '-'
-	GObject.signal_connect cast_object_pointer(o), sn, &self.method(hn)
+	GObject.signal_connect o, sn, &self.method(hn)
       }, nil
     end
 
-    # FIXME: Make part of gir_ffi.
-    def cast_object_pointer optr
-      tp = GObject.type_from_instance_pointer optr
-      gir = GirFFI::IRepository.default
-      info = gir.find_by_gtype tp
-      klass = GirFFI::Builder.build_class info.namespace, info.name
-      klass.send :_real_new, optr
-    end
-
-    # FIXME: Adjust Gtk::Builder#get_object
     def built_object name
-      cast_object_pointer(@builder.get_object(name).to_ptr)
+      @builder.get_object(name)
     end
 
     def on_mainwindow_destroy w, u
