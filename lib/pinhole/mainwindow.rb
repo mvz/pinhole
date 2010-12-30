@@ -16,8 +16,8 @@ module Pinhole
       @browser = Browser.new
       @image = Image.new
 
-      @box.pack_start(@browser, false, false, 0)
-      @box.pack_start(@image, false, false, 0)
+      @box.pack_start(@browser, true, true, 0)
+      @box.pack_start(@image, true, true, 0)
 
       @active_widget = @browser
 
