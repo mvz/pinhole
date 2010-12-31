@@ -40,7 +40,6 @@ module Pinhole
       @store = Gtk::ListStore.newv([st, pt, st])
 
       @provider.each { |f|
-	pb = GdkPixbuf::Pixbuf.new_from_file_at_size(f, 100, 100)
 	it = Gtk::TreeIter.new
 
 	@store.append it
@@ -54,6 +53,18 @@ module Pinhole
 	gvstr.set_string f
 	# FIXME: Automate wrapping in GValues.
 	@store.set_value it, 0, gvstr
+
+	gf = Gio.file_new_for_path(f)
+	inf = gf.query_info "thumbnail::*", :none, nil
+
+	iconpath = inf.get_attribute_byte_string "thumbnail::path"
+
+	if iconpath.nil?
+	  puts "Scaling image as thumbnail"
+	  pb = GdkPixbuf::Pixbuf.new_from_file_at_size(f, 128, 128)
+	else
+	  pb = GdkPixbuf::Pixbuf.new_from_file(iconpath)
+	end
 
 	gvpb.set_instance pb
 	@store.set_value it, 1, gvpb

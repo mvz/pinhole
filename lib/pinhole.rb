@@ -2,6 +2,7 @@ require 'gir_ffi'
 
 GirFFI.setup :Gtk
 GirFFI.setup :GdkPixbuf
+GirFFI.setup :Gio
 
 module Pinhole
 
