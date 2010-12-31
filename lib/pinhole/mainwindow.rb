@@ -24,6 +24,7 @@ module Pinhole
       @browser.set_action do |iv, path|
 	model = iv.get_model
 
+	# FIXME: This is very complex. Override?
 	it = Gtk::TreeIter.new
 	model.get_iter(it, path)
 

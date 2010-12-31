@@ -129,27 +129,29 @@ module Pinhole
     end
 
     def on_viewport_button_press_event w, e
+      e = e[:button]
       @dragging = true
-      @dragx = e.x_root
-      @dragy = e.y_root
+      @dragx = e[:x_root]
+      @dragy = e[:y_root]
 
-      @scrollx = @viewport.hadjustment.value
-      @scrolly = @viewport.vadjustment.value
-      @viewport.window.cursor = Gdk::Cursor.new(Gdk::Cursor::FLEUR)
+      @scrollx = @viewport.get_hadjustment.get_value
+      @scrolly = @viewport.get_vadjustment.get_value
+      @viewport.get_window.set_cursor Gdk::Cursor.new(:fleur)
     end
 
     def on_viewport_button_release_event w, e
       @dragging = false
-      @viewport.window.cursor = nil
+      @viewport.get_window.set_cursor nil
     end
 
     def on_viewport_motion_notify_event w, e
+      e = e[:button]
       return false unless @dragging
-      dx = e.x_root - @dragx
-      dy = e.y_root - @dragy
+      dx = e[:x_root] - @dragx
+      dy = e[:y_root] - @dragy
 
-      set_adjustment(@viewport.hadjustment, @scrollx - dx)
-      set_adjustment(@viewport.vadjustment, @scrolly - dy)
+      set_adjustment(@viewport.get_hadjustment, @scrollx - dx)
+      set_adjustment(@viewport.get_vadjustment, @scrolly - dy)
     end
 
     def on_viewport_size_allocate
@@ -171,10 +173,10 @@ module Pinhole
     end
 
     def set_adjustment adj, val
-      max = adj.upper - adj.page_size
+      max = adj.get_upper - adj.get_page_size
       val = max if val > max
       val = 0 if val < 0
-      adj.value = val
+      adj.set_value val
     end
   end
 end
