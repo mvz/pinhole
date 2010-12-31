@@ -22,11 +22,19 @@ module Pinhole
       @active_widget = @browser
 
       @browser.set_action do |iv, path|
-	filename = iv.model.get_iter(path).get_value(0)
+	model = iv.get_model
+
+	it = Gtk::TreeIter.new
+	model.get_iter(it, path)
+
+	gvstr = GObject::Value.new
+	model.get_value(it, 0, gvstr)
+	filename = gvstr.get_string
+
 	@image.load_image_from_file(filename)
 
-	@browser.visible = false
-	@image.visible = true
+	@browser.set_visible false
+	@image.set_visible true
 	@active_widget = @image
 
 	@image.zoom_fit

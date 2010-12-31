@@ -2,7 +2,7 @@ require 'forwardable'
 module Pinhole
   class Image
     extend Forwardable
-    def_delegators :@widget, :to_ptr, :set_visible
+    def_delegators :@widget, :to_ptr, :set_visible, :show_all
 
     # FIXME: Create appropriate Color constructor.
     #COLOR_BLACK = Gdk::Color.new(0, 0, 0)
@@ -33,12 +33,12 @@ module Pinhole
     def update_pixbuf
       return if @current_zoom == @wanted_zoom
       if @wanted_zoom == 1.0
-	@image.pixbuf = @fullsize_buf
+	@image.set_from_pixbuf @fullsize_buf
       else
-	b = @fullsize_buf.scale(@wanted_zoom * @fullsize_buf.width,
-				@wanted_zoom * @fullsize_buf.height,
-				:bilinear)
-	@image.pixbuf = b
+	b = @fullsize_buf.scale_simple(@wanted_zoom * @fullsize_buf.get_width,
+				       @wanted_zoom * @fullsize_buf.get_height,
+				       :bilinear)
+	@image.set_from_pixbuf b
       end
       @current_zoom = @wanted_zoom
       GC.start
@@ -60,7 +60,7 @@ module Pinhole
     end
 
     def load_image_from_file filename
-      @fullsize_buf = GdkPixbuf::Pixbuf.new(filename)
+      @fullsize_buf = GdkPixbuf::Pixbuf.new_from_file(filename)
     end
 
     def zoom_in
@@ -90,8 +90,9 @@ module Pinhole
     private
 
     def image_fit_zoom
-      [(1.0 * allocation.width) / @fullsize_buf.width,
-	(1.0 * allocation.height) / @fullsize_buf.height,
+      alloc = @widget.get_allocation
+      [(1.0 * alloc[:width]) / @fullsize_buf.get_width,
+	(1.0 * alloc[:height]) / @fullsize_buf.get_height,
 	1.0].min
     end
 
@@ -103,9 +104,9 @@ module Pinhole
 
     def update_scrollbar_policy
       if @fullscreen or @zoom_mode == :fit
-	self.set_policy(:never, :never)
+	@widget.set_policy(:never, :never)
       else
-	self.set_policy(:automatic, :automatic)
+	@widget.set_policy(:automatic, :automatic)
       end
     end
 
@@ -158,13 +159,13 @@ module Pinhole
 	@wanted_zoom = zoom
 
 	# Trick from Eye of Gnome: do fast scale now ...
-	b = @fullsize_buf.scale(@wanted_zoom * @fullsize_buf.width,
-				@wanted_zoom * @fullsize_buf.height,
-				:nearest)
-	@image.pixbuf = b
+	b = @fullsize_buf.scale_simple(@wanted_zoom * @fullsize_buf.get_width,
+				       @wanted_zoom * @fullsize_buf.get_height,
+				       :nearest)
+	@image.set_from_pixbuf b
 
 	# ... and delay slow scale till later.
-	Gtk.idle_add { update_pixbuf }
+	Gtk.idle_add Proc.new { update_pixbuf }, nil
       end
       return true
     end
