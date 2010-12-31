@@ -48,13 +48,13 @@ module Pinhole
 
     def fullscreen
       # FIXME: Restore once black is defined.
-      #@eventbox.modify_bg Gtk::STATE_NORMAL, COLOR_BLACK
+      #@eventbox.modify_bg :normal, COLOR_BLACK
       @fullscreen = true
       update_scrollbar_policy
     end
 
     def unfullscreen
-      @eventbox.modify_bg Gtk::STATE_NORMAL, nil
+      @eventbox.modify_bg :normal, nil
       @fullscreen = false
       update_scrollbar_policy
     end
