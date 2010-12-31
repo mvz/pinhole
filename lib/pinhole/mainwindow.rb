@@ -151,8 +151,8 @@ module Pinhole
     end
 
     def on_menu_cancel_activate w, u
-      @image.visible = false
-      @browser.visible = true
+      @image.set_visible false
+      @browser.set_visible true
       @active_widget = @browser
     end
   end
