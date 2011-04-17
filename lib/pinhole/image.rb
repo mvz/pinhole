@@ -167,7 +167,9 @@ module Pinhole
 	@image.set_from_pixbuf b
 
 	# ... and delay slow scale till later.
-	Gtk.idle_add Proc.new { update_pixbuf }, nil
+        # FIXME: Allow symbols or constants for priority.
+        # FIXME: Allow priority to be left out.
+	GLib.idle_add 200, Proc.new { update_pixbuf }, nil, nil
       end
       return true
     end
