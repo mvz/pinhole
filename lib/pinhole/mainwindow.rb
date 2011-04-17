@@ -24,12 +24,11 @@ module Pinhole
       @browser.set_action do |iv, path|
 	model = iv.get_model
 
-	# FIXME: This is very complex. Override?
-	it = Gtk::TreeIter.new
-	model.get_iter(it, path)
+	r, it = model.get_iter(path)
 
-	gvstr = GObject::Value.new
-	model.get_value(it, 0, gvstr)
+        next unless r
+
+	gvstr = model.get_value(it, 0)
 	filename = gvstr.get_string
 
 	@image.load_image_from_file(filename)
@@ -49,9 +48,7 @@ module Pinhole
       @store = Gtk::ListStore.newv([st, pt, st])
 
       @provider.each { |f|
-	it = Gtk::TreeIter.new
-
-	@store.append it
+	it = @store.append
 
 	gvstr = GObject::Value.new
 	gvstr.init st
