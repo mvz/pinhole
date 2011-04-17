@@ -1,8 +1,7 @@
 require 'gir_ffi'
 
-GirFFI.setup :Gtk
-GirFFI.setup :GdkPixbuf
-GirFFI.setup :Gio
+GirFFI.setup :Gtk, '2.0'
+GirFFI.setup :GdkPixbuf, '2.0'
 
 module Pinhole
 
