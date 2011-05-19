@@ -4,8 +4,10 @@ module Pinhole
     extend Forwardable
     def_delegators :@widget, :to_ptr, :set_visible, :show_all
 
-    # FIXME: Create appropriate Color constructor.
-    #COLOR_BLACK = Gdk::Color.new(0, 0, 0)
+    COLOR_BLACK = Gdk::Color.new
+    COLOR_BLACK[:red] = 0
+    COLOR_BLACK[:green] = 0
+    COLOR_BLACK[:blue] = 0
 
     def initialize
       @widget = Gtk::ScrolledWindow.new nil, nil
@@ -47,8 +49,7 @@ module Pinhole
     public
 
     def fullscreen
-      # FIXME: Restore once black is defined.
-      #@eventbox.modify_bg :normal, COLOR_BLACK
+      @eventbox.modify_bg :normal, COLOR_BLACK
       @fullscreen = true
       update_scrollbar_policy
     end
