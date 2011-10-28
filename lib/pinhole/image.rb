@@ -13,7 +13,7 @@ module Pinhole
       @widget = Gtk::ScrolledWindow.new nil, nil
       @eventbox = Gtk::EventBox.new
       @widget.add_with_viewport(@eventbox)
-      @viewport = Gtk::Viewport.send :_real_new, @widget.get_child.to_ptr
+      @viewport = @widget.get_child
       @viewport.set_shadow_type :none
 
       # This line is needed to prevent the viewport from forcing a minimum
@@ -130,7 +130,6 @@ module Pinhole
     end
 
     def on_viewport_button_press_event w, e
-      e = e[:button]
       @dragging = true
       @dragx = e[:x_root]
       @dragy = e[:y_root]
@@ -146,7 +145,6 @@ module Pinhole
     end
 
     def on_viewport_motion_notify_event w, e
-      e = e[:button]
       return false unless @dragging
       dx = e[:x_root] - @dragx
       dy = e[:y_root] - @dragy
