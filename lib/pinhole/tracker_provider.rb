@@ -1,4 +1,5 @@
 require "dbus"
+require "cgi"
 
 module Pinhole
   class TrackerProvider
@@ -26,7 +27,7 @@ module Pinhole
       "
 
       list[0].each {|e|
-	yield e[0].gsub(/file:\/\//, '') # if e[3] != ""
+	yield CGI.unescape(e[0].gsub(/file:\/\//, '')) # if e[3] != ""
       }
     end
 
