@@ -1,18 +1,13 @@
 require 'forwardable'
 module Pinhole
   class Image < Gtk::ScrolledWindow
-    #extend Forwardable
-    #def_delegators :@widget, :to_ptr, :set_visible, :show_all
-
     _, COLOR_BLACK = Gdk.color_parse 'black'
 
     def initialize ptr
       super ptr
-      @widget = self
-      #@widget = Gtk::ScrolledWindow.new nil, nil
       @eventbox = Gtk::EventBox.new
-      @widget.add_with_viewport(@eventbox)
-      @viewport = @widget.get_child
+      self.add_with_viewport(@eventbox)
+      @viewport = self.get_child
       @viewport.set_shadow_type :none
 
       # This line is needed to prevent the viewport from forcing a minimum
@@ -91,7 +86,7 @@ module Pinhole
     private
 
     def image_fit_zoom
-      alloc = @widget.allocation
+      alloc = self.allocation
       [(1.0 * alloc.width) / @fullsize_buf.width,
        (1.0 * alloc.height) / @fullsize_buf.height,
        1.0].min
@@ -105,9 +100,9 @@ module Pinhole
 
     def update_scrollbar_policy
       if @fullscreen || @zoom_mode == :fit
-        @widget.set_policy(:never, :never)
+        self.set_policy(:never, :never)
       else
-        @widget.set_policy(:automatic, :automatic)
+        self.set_policy(:automatic, :automatic)
       end
     end
 
