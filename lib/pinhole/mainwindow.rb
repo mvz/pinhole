@@ -18,7 +18,7 @@ module Pinhole
       @box = built_object('mainvbox')
 
       @browser = Browser.new
-      @image = Image.new
+      @image = Image.new nil, nil
 
       @box.pack_start(@browser, true, true, 0)
       @box.pack_start(@image, true, true, 0)
