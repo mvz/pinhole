@@ -5,9 +5,9 @@ module Pinhole
     def_delegators :@widget, :to_ptr, :set_visible, :show_all
 
     COLOR_BLACK = Gdk::Color.new
-    COLOR_BLACK[:red] = 0
-    COLOR_BLACK[:green] = 0
-    COLOR_BLACK[:blue] = 0
+    COLOR_BLACK.red = 0
+    COLOR_BLACK.green = 0
+    COLOR_BLACK.blue = 0
 
     def initialize
       @widget = Gtk::ScrolledWindow.new nil, nil
@@ -92,8 +92,8 @@ module Pinhole
 
     def image_fit_zoom
       alloc = @widget.get_allocation
-      [(1.0 * alloc[:width]) / @fullsize_buf.get_width,
-	(1.0 * alloc[:height]) / @fullsize_buf.get_height,
+      [(1.0 * alloc.width) / @fullsize_buf.get_width,
+	(1.0 * alloc.height) / @fullsize_buf.get_height,
 	1.0].min
     end
 
@@ -131,8 +131,8 @@ module Pinhole
 
     def on_viewport_button_press_event w, e
       @dragging = true
-      @dragx = e[:x_root]
-      @dragy = e[:y_root]
+      @dragx = e.x_root
+      @dragy = e.y_root
 
       @scrollx = @viewport.get_hadjustment.get_value
       @scrolly = @viewport.get_vadjustment.get_value
@@ -146,8 +146,8 @@ module Pinhole
 
     def on_viewport_motion_notify_event w, e
       return false unless @dragging
-      dx = e[:x_root] - @dragx
-      dy = e[:y_root] - @dragy
+      dx = e.x_root - @dragx
+      dy = e.y_root - @dragy
 
       set_adjustment(@viewport.get_hadjustment, @scrollx - dx)
       set_adjustment(@viewport.get_vadjustment, @scrolly - dy)

@@ -110,7 +110,7 @@ module Pinhole
     end
 
     def on_mainwindow_window_state_event w, e, u
-      if e[:new_window_state] == :fullscreen
+      if e.new_window_state == :fullscreen
 	built_object("menubar").set_visible false
 	built_object("statusbar").set_visible false
 	@active_widget.fullscreen
