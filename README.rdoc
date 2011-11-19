@@ -21,17 +21,19 @@ Pinhole is an image collection browser for Gnome.
 
 == REQUIREMENTS:
 
-* ruby-gnome2
+* GirFFI
 * Tracker
 * dbus 
 
 == INSTALL:
 
-sude gem install pinhole
+In the future, you will be able to do this:
+
+  gem install pinhole
 
 == LICENSE:
 
-Copyright (c) 2009 Matijs van Zuijlen
+Copyright (c) 2009-2011 Matijs van Zuijlen
 
 Pinhole is free software, distributed under the terms of the GNU General
 Public License, version 2 or later. See the file COPYING for more
