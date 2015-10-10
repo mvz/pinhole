@@ -44,7 +44,7 @@ module Pinhole
       # FIXME: Implement Gtk::ListStore.new
       #@store = Gtk::ListStore.new(String, GdkPixbuf::Pixbuf, String)
       st = GObject.type_from_name "gchararray"
-      pt = GdkPixbuf::Pixbuf.get_gtype
+      pt = GdkPixbuf::Pixbuf.gtype
       @store = Gtk::ListStore.newv([st, pt, st])
 
       @provider.each { |f|
