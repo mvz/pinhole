@@ -4,3 +4,4 @@ notes.txt
 pkg
 doc
 *.jpg
+Gemfile.lock
