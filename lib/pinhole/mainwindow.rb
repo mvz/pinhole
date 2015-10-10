@@ -60,6 +60,10 @@ module Pinhole
 	# FIXME: Automate wrapping in GValues.
 	@store.set_value it, 0, gvstr
 
+        unless File.exist? f
+          warn "File #{f} does not exist"
+          next
+        end
 	gf = Gio.file_new_for_path(f)
 	inf = gf.query_info "thumbnail::*", :none, nil
 

@@ -1,4 +1,4 @@
-require 'ffi-gtk2'
+require 'gir_ffi-gtk2'
 
 GirFFI.setup :GdkPixbuf, '2.0'
 

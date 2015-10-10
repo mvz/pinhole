@@ -4,10 +4,7 @@ module Pinhole
     extend Forwardable
     def_delegators :@widget, :to_ptr, :set_visible, :show_all
 
-    COLOR_BLACK = Gdk::Color.new
-    COLOR_BLACK.red = 0
-    COLOR_BLACK.green = 0
-    COLOR_BLACK.blue = 0
+    _, COLOR_BLACK = Gdk.color_parse "black"
 
     def initialize
       @widget = Gtk::ScrolledWindow.new nil, nil
