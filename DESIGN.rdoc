@@ -1,0 +1,29 @@
+== Pinhole
+
+(This is a transcript of some notes on paper.)
+
+1) Eerste start
+  - Waar zijn uw foto's?
+    * Hele home-directory
+    * Deze directory
+    * Volg Tracker (-> Alles wat Tracker kan vinden)
+  - Lees alle vindbare foto's
+
+-> Nee, laten we alleen *mijn* scenario's doen.
+
+1) eerste start -> leeg.
+2) Instellen bron-folder
+                 |-> lees alle foto's in.
+3) Alle foto's tonen.
+4) Foto's van een bepaalde periode.
+5) Foto's in een set/album/event                    /tag
+                            |-> sorteren op datum
+6) Foto's uitkiezen
+7) Foto's weggooien
+8) Trash bekijken, en vergelijken met andere foto's in dezelfde serie.
+
+
+                <''\..>
+
+Trash: almost empty != full. (I think this refers to the trash icon, which
+looks full even when the tiniest file is in there.)
