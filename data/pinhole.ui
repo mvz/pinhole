@@ -170,7 +170,7 @@
     <property name="default_width">500</property>
     <property name="default_height">400</property>
     <signal handler="on_mainwindow_destroy" name="destroy"/>
-    <signal handler="on_mainwindow_window_state_event" name="window_state_event"/>
+    <signal handler="on_mainwindow_window_state_event" name="window-state-event"/>
     <child>
       <object class="GtkVBox" id="mainvbox">
         <property name="visible">True</property>
