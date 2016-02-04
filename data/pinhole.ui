@@ -1,0 +1,204 @@
+<?xml version="1.0"?>
+<interface>
+  <object class="GtkUIManager" id="uimanager1">
+    <child>
+      <object class="GtkActionGroup" id="actiongroup1">
+        <child>
+          <object class="GtkAction" id="menuitem1">
+            <property name="name">menuitem1</property>
+            <property name="label" translatable="yes">_File</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="imagemenuitem1">
+            <property name="stock_id">gtk-new</property>
+            <property name="name">imagemenuitem1</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="imagemenuitem2">
+            <property name="stock_id">gtk-open</property>
+            <property name="name">imagemenuitem2</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="imagemenuitem3">
+            <property name="stock_id">gtk-save</property>
+            <property name="name">imagemenuitem3</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="imagemenuitem4">
+            <property name="stock_id">gtk-save-as</property>
+            <property name="name">imagemenuitem4</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="imagemenuitem5">
+            <property name="stock_id">gtk-quit</property>
+            <property name="name">imagemenuitem5</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="menuitem2">
+            <property name="name">menuitem2</property>
+            <property name="label" translatable="yes">_Edit</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="imagemenuitem6">
+            <property name="stock_id">gtk-cut</property>
+            <property name="name">imagemenuitem6</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="imagemenuitem7">
+            <property name="stock_id">gtk-copy</property>
+            <property name="name">imagemenuitem7</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="imagemenuitem8">
+            <property name="stock_id">gtk-paste</property>
+            <property name="name">imagemenuitem8</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="imagemenuitem9">
+            <property name="stock_id">gtk-delete</property>
+            <property name="name">imagemenuitem9</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="menuitem3">
+            <property name="name">menuitem3</property>
+            <property name="label" translatable="yes">_View</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="menu_fullscreen">
+            <property name="stock_id">gtk-fullscreen</property>
+            <property name="name">menu_fullscreen</property>
+            <signal handler="on_menu_fullscreen_activate" name="activate"/>
+          </object>
+          <accelerator key="F11"/>
+        </child>
+        <child>
+          <object class="GtkAction" id="menu_zoom_in">
+            <property name="stock_id">gtk-zoom-in</property>
+            <property name="name">menu_zoom_in</property>
+            <signal handler="on_menu_zoom_in_activate" name="activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="menu_zoom_out">
+            <property name="stock_id">gtk-zoom-out</property>
+            <property name="name">menu_zoom_out</property>
+            <signal handler="on_menu_zoom_out_activate" name="activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="menu_zoom_fit">
+            <property name="stock_id">gtk-zoom-fit</property>
+            <property name="name">menu_zoom_fit</property>
+            <signal handler="on_menu_zoom_fit_activate" name="activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="menu_zoom_100">
+            <property name="stock_id">gtk-zoom-100</property>
+            <property name="name">menu_zoom_100</property>
+            <signal handler="on_menu_zoom_100_activate" name="activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="menu_cancel">
+            <property name="stock_id">gtk-cancel</property>
+            <property name="name">menu_cancel</property>
+            <signal handler="on_menu_cancel_activate" name="activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="menuitem4">
+            <property name="name">menuitem4</property>
+            <property name="label" translatable="yes">_Help</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="imagemenuitem10">
+            <property name="stock_id">gtk-about</property>
+            <property name="name">imagemenuitem10</property>
+          </object>
+        </child>
+      </object>
+    </child>
+    <ui>
+      <menubar name="menubar">
+        <menu action="menuitem1">
+          <menuitem action="imagemenuitem1"/>
+          <menuitem action="imagemenuitem2"/>
+          <menuitem action="imagemenuitem3"/>
+          <menuitem action="imagemenuitem4"/>
+          <separator/>
+          <menuitem action="imagemenuitem5"/>
+        </menu>
+        <menu action="menuitem2">
+          <menuitem action="imagemenuitem6"/>
+          <menuitem action="imagemenuitem7"/>
+          <menuitem action="imagemenuitem8"/>
+          <menuitem action="imagemenuitem9"/>
+        </menu>
+        <menu action="menuitem3">
+          <menuitem action="menu_fullscreen"/>
+          <menuitem action="menu_zoom_in"/>
+          <menuitem action="menu_zoom_out"/>
+          <menuitem action="menu_zoom_fit"/>
+          <menuitem action="menu_zoom_100"/>
+          <separator/>
+          <menuitem action="menu_cancel"/>
+        </menu>
+        <menu action="menuitem4">
+          <menuitem action="imagemenuitem10"/>
+        </menu>
+      </menubar>
+    </ui>
+  </object>
+  <!-- interface-requires gtk+ 2.16 -->
+  <!-- interface-naming-policy toplevel-contextual -->
+  <object class="GtkWindow" id="mainwindow">
+    <property name="title" translatable="yes">Pinhole</property>
+    <property name="default_width">500</property>
+    <property name="default_height">400</property>
+    <signal handler="on_mainwindow_destroy" name="destroy"/>
+    <signal handler="on_mainwindow_window_state_event" name="window_state_event"/>
+    <child>
+      <object class="GtkVBox" id="mainvbox">
+        <property name="visible">True</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="GtkMenuBar" constructor="uimanager1" id="menubar">
+            <property name="visible">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <object class="GtkStatusbar" id="statusbar">
+            <property name="visible">True</property>
+            <property name="spacing">2</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="pack_type">end</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>
