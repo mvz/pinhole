@@ -164,8 +164,7 @@ module Pinhole
 
 	# ... and delay slow scale till later.
         # FIXME: Allow priority to be left out.
-	GLib.idle_add GLib::PRIORITY_DEFAULT_IDLE,
-          Proc.new { update_pixbuf }, nil, nil
+	GLib.idle_add(GLib::PRIORITY_DEFAULT_IDLE) { update_pixbuf }
       end
       return true
     end

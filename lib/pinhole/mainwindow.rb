@@ -28,8 +28,7 @@ module Pinhole
 
         next unless r
 
-	gvstr = model.get_value(it, 0)
-	filename = gvstr.get_string
+	filename = model.get_value(it, 0)
 
 	@image.load_image_from_file(filename)
 
