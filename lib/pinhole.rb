@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "gir_ffi-gtk2"
+require "gir_ffi-gtk3"
 
 GirFFI.setup :GdkPixbuf, "2.0"
 
