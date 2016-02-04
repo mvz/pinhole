@@ -98,11 +98,7 @@ module Pinhole
     def setup_ui
       @builder = Gtk::Builder.new
       @builder.add_from_file Pinhole.path "data", "pinhole.ui"
-      # FIXME: Perhaps add override to simplify this method call.
-      @builder.connect_signals_full Proc.new { |b,o,sn,hn,co,f,ud|
-	sn.gsub! /_/, '-'
-	GObject.signal_connect o, sn, &self.method(hn)
-      }, nil
+      @builder.connect_signals { |handler_name| method(handler_name) }
     end
 
     def built_object name
@@ -114,7 +110,7 @@ module Pinhole
     end
 
     def on_mainwindow_window_state_event w, e, u
-      if e.new_window_state == :fullscreen
+      if e.new_window_state[:fullscreen]
 	built_object("menubar").set_visible false
 	built_object("statusbar").set_visible false
 	@active_widget.fullscreen

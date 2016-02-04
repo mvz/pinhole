@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
       `git ls-files -z`.split("\0")
   s.test_files = Dir['test/**/*.rb']
 
-  s.add_dependency('gir_ffi-gtk', ['~> 0.8.0'])
+  s.add_dependency('gir_ffi-gtk', ['~> 0.9.0'])
   s.add_dependency('ruby-dbus', ['~> 0.11.0'])
   s.add_development_dependency('rake', ['~> 10.1'])
 end
