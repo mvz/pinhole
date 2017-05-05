@@ -26,9 +26,9 @@ module Pinhole
       LIMIT 10
       "
 
-      list[0].each {|e|
+      list[0].each do |e|
         yield CGI.unescape(e[0].gsub(/file:\/\//, '')) # if e[3] != ""
-      }
+      end
     end
 
     private

@@ -45,7 +45,7 @@ module Pinhole
       pt = GdkPixbuf::Pixbuf.gtype
       @store = Gtk::ListStore.new([st, pt, st])
 
-      @provider.each { |f|
+      @provider.each do |f|
         it = @store.append
 
         unless File.exist? f
@@ -67,7 +67,7 @@ module Pinhole
         @store.set_value it, 0, f
         @store.set_value it, 1, pb
         @store.set_value it, 2, File.basename(f)
-      }
+      end
 
       @browser.set_model @store
 
