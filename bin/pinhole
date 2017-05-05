@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
-require 'pinhole'
+require 'pinhole/tracker_provider'
+require 'pinhole/mainwindow'
 
 #provider = Dir.glob("*.jpg")
 provider = Pinhole::TrackerProvider.new

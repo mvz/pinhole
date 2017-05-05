@@ -1,3 +1,7 @@
+require 'pinhole'
+require 'pinhole/browser'
+require 'pinhole/image'
+
 module Pinhole
   class MainWindow
     GVS = []
