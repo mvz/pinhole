@@ -38,11 +38,10 @@ module Pinhole
     def get_iface(name)
       o = @tracker.object("/org/freedesktop/Tracker1/#{name}")
       o.introspect
-      if o.has_iface? "org.freedesktop.Tracker1.#{name}"
-        return o["org.freedesktop.Tracker1.#{name}"]
-      else
+      unless o.has_iface? "org.freedesktop.Tracker1.#{name}"
         raise "We have no #{name} interface"
       end
+      o["org.freedesktop.Tracker1.#{name}"]
     end
   end
 end
