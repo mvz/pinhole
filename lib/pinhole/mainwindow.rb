@@ -44,7 +44,6 @@ module Pinhole
         @image.show_all
       end
 
-      #@store = Gtk::ListStore.new(String, GdkPixbuf::Pixbuf, String)
       st = GObject.type_from_name 'gchararray'
       pt = GdkPixbuf::Pixbuf.gtype
       @store = Gtk::ListStore.new([st, pt, st])

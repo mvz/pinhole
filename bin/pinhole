@@ -3,6 +3,5 @@
 require 'pinhole/tracker_provider'
 require 'pinhole/mainwindow'
 
-#provider = Dir.glob("*.jpg")
 provider = Pinhole::TrackerProvider.new
 Pinhole::MainWindow.new(provider).run

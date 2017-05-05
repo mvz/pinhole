@@ -13,8 +13,6 @@ module Pinhole
     def each
       # Returns an array of arrays of arrays. The first element of each
       # sub-array is the file name.
-      #list = searcher.Query(1, "Images", ["File:Mime", "Image:CameraMake"],
-      #			    "", [], "", false, [], false, 0, 200)
       list = searcher.SparqlQuery "
       SELECT ?url ?typ
       WHERE {
