@@ -21,4 +21,3 @@ Gem::Specification.new do |s|
   s.add_dependency('ruby-dbus', ['~> 0.13.0'])
   s.add_development_dependency('rake', ['~> 12.0'])
 end
-

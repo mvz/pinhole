@@ -29,4 +29,3 @@ p search.GetHitCount('Images', 'image')
 #p search.Text(1, "Images", "Canon", 0, 10)
 p search.Query(1, 'Images', ['File:Mime'], '', [], '', false, [], false, 0, 10)
 #p player_with_iface.getPlayingUri
-

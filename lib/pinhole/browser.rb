@@ -30,4 +30,3 @@ module Pinhole
     def zoom_fit; end
   end
 end
-

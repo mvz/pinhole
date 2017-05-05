@@ -140,4 +140,3 @@ module Pinhole
     end
   end
 end
-
