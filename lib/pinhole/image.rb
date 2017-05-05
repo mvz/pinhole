@@ -101,7 +101,7 @@ module Pinhole
     end
 
     def update_scrollbar_policy
-      if @fullscreen or @zoom_mode == :fit
+      if @fullscreen || @zoom_mode == :fit
         @widget.set_policy(:never, :never)
       else
         @widget.set_policy(:automatic, :automatic)
