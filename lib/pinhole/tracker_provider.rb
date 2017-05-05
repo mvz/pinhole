@@ -18,16 +18,16 @@ module Pinhole
       list = searcher.SparqlQuery "
       SELECT ?url ?typ
       WHERE {
-	      ?photo a nmm:Photo ;
-		      nie:isStoredAs ?as .
-	      ?as nie:url ?url .
-	      ?photo nie:mimeType ?typ .
+              ?photo a nmm:Photo ;
+                      nie:isStoredAs ?as .
+              ?as nie:url ?url .
+              ?photo nie:mimeType ?typ .
       }
       LIMIT 10
       "
 
       list[0].each {|e|
-	yield CGI.unescape(e[0].gsub(/file:\/\//, '')) # if e[3] != ""
+        yield CGI.unescape(e[0].gsub(/file:\/\//, '')) # if e[3] != ""
       }
     end
 
@@ -41,9 +41,9 @@ module Pinhole
       o = @tracker.object("/org/freedesktop/Tracker1/#{name}")
       o.introspect
       if o.has_iface? "org.freedesktop.Tracker1.#{name}"
-	return o["org.freedesktop.Tracker1.#{name}"]
+        return o["org.freedesktop.Tracker1.#{name}"]
       else
-	raise "We have no #{name} interface"
+        raise "We have no #{name} interface"
       end
     end
   end

@@ -22,22 +22,22 @@ module Pinhole
       @active_widget = @browser
 
       @browser.set_action do |iv, path|
-	model = iv.model
+        model = iv.model
 
-	r, it = model.get_iter(path)
+        r, it = model.get_iter(path)
 
         next unless r
 
-	filename = model.get_value(it, 0)
+        filename = model.get_value(it, 0)
 
-	@image.load_image_from_file(filename)
+        @image.load_image_from_file(filename)
 
-	@browser.set_visible false
-	@image.set_visible true
-	@active_widget = @image
+        @browser.set_visible false
+        @image.set_visible true
+        @active_widget = @image
 
-	@image.zoom_fit
-	@image.show_all
+        @image.zoom_fit
+        @image.show_all
       end
 
       #@store = Gtk::ListStore.new(String, GdkPixbuf::Pixbuf, String)
@@ -46,27 +46,27 @@ module Pinhole
       @store = Gtk::ListStore.new([st, pt, st])
 
       @provider.each { |f|
-	it = @store.append
+        it = @store.append
 
         unless File.exist? f
           warn "File #{f} does not exist"
           next
         end
-	gf = Gio.file_new_for_path(f)
-	inf = gf.query_info "thumbnail::*", :none, nil
+        gf = Gio.file_new_for_path(f)
+        inf = gf.query_info "thumbnail::*", :none, nil
 
-	iconpath = inf.get_attribute_byte_string "thumbnail::path"
+        iconpath = inf.get_attribute_byte_string "thumbnail::path"
 
-	if iconpath.nil?
-	  puts "Scaling image as thumbnail"
-	  pb = GdkPixbuf::Pixbuf.new_from_file_at_size(f, 128, 128)
-	else
-	  pb = GdkPixbuf::Pixbuf.new_from_file(iconpath)
-	end
+        if iconpath.nil?
+          puts "Scaling image as thumbnail"
+          pb = GdkPixbuf::Pixbuf.new_from_file_at_size(f, 128, 128)
+        else
+          pb = GdkPixbuf::Pixbuf.new_from_file(iconpath)
+        end
 
-	@store.set_value it, 0, f
-	@store.set_value it, 1, pb
-	@store.set_value it, 2, File.basename(f)
+        @store.set_value it, 0, f
+        @store.set_value it, 1, pb
+        @store.set_value it, 2, File.basename(f)
       }
 
       @browser.set_model @store
@@ -97,23 +97,23 @@ module Pinhole
 
     def on_mainwindow_window_state_event(_w, e, _u)
       if e.new_window_state[:fullscreen]
-	built_object("menubar").set_visible false
-	built_object("statusbar").set_visible false
-	@active_widget.fullscreen
-	@fullscreen = true
+        built_object("menubar").set_visible false
+        built_object("statusbar").set_visible false
+        @active_widget.fullscreen
+        @fullscreen = true
       else
-	built_object("menubar").set_visible true
-	built_object("statusbar").set_visible true
-	@active_widget.unfullscreen
-	@fullscreen = false
+        built_object("menubar").set_visible true
+        built_object("statusbar").set_visible true
+        @active_widget.unfullscreen
+        @fullscreen = false
       end
     end
 
     def on_menu_fullscreen_activate(_w, _u)
       if @fullscreen then
-	@window.unfullscreen
+        @window.unfullscreen
       else
-	@window.fullscreen
+        @window.fullscreen
       end
     end
 

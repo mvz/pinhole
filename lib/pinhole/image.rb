@@ -32,12 +32,12 @@ module Pinhole
     def update_pixbuf
       return if @current_zoom == @wanted_zoom
       if @wanted_zoom == 1.0
-	@image.set_from_pixbuf @fullsize_buf
+        @image.set_from_pixbuf @fullsize_buf
       else
-	b = @fullsize_buf.scale_simple(@wanted_zoom * @fullsize_buf.get_width,
-				       @wanted_zoom * @fullsize_buf.get_height,
-				       :bilinear)
-	@image.set_from_pixbuf b
+        b = @fullsize_buf.scale_simple(@wanted_zoom * @fullsize_buf.get_width,
+                                       @wanted_zoom * @fullsize_buf.get_height,
+                                       :bilinear)
+        @image.set_from_pixbuf b
       end
       @current_zoom = @wanted_zoom
       GC.start
@@ -90,8 +90,8 @@ module Pinhole
     def image_fit_zoom
       alloc = @widget.allocation
       [(1.0 * alloc.width) / @fullsize_buf.width,
-	(1.0 * alloc.height) / @fullsize_buf.height,
-	1.0].min
+       (1.0 * alloc.height) / @fullsize_buf.height,
+       1.0].min
     end
 
     def set_zoom(zoom)
@@ -102,27 +102,27 @@ module Pinhole
 
     def update_scrollbar_policy
       if @fullscreen or @zoom_mode == :fit
-	@widget.set_policy(:never, :never)
+        @widget.set_policy(:never, :never)
       else
-	@widget.set_policy(:automatic, :automatic)
+        @widget.set_policy(:automatic, :automatic)
       end
     end
 
     def setup_viewport_signal_handlers
       GObject.signal_connect @viewport, "button-press-event" do |w, e|
-	on_viewport_button_press_event w, e
+        on_viewport_button_press_event w, e
       end
 
       GObject.signal_connect @viewport, "button-release-event" do |w, e|
-	on_viewport_button_release_event w, e
+        on_viewport_button_release_event w, e
       end
 
       GObject.signal_connect @viewport, "motion-notify-event" do |w, e|
-	on_viewport_motion_notify_event w, e
+        on_viewport_motion_notify_event w, e
       end
 
       GObject.signal_connect @viewport, "size-allocate" do
-	on_viewport_size_allocate
+        on_viewport_size_allocate
       end
     end
 
@@ -152,19 +152,19 @@ module Pinhole
 
     def on_viewport_size_allocate
       if @zoom_mode == :fit
-	zoom = image_fit_zoom
-	return true if zoom == @wanted_zoom
-	@wanted_zoom = zoom
+        zoom = image_fit_zoom
+        return true if zoom == @wanted_zoom
+        @wanted_zoom = zoom
 
-	# Trick from Eye of Gnome: do fast scale now ...
-	b = @fullsize_buf.scale_simple(@wanted_zoom * @fullsize_buf.width,
-				       @wanted_zoom * @fullsize_buf.height,
-				       :nearest)
-	@image.set_from_pixbuf b
+        # Trick from Eye of Gnome: do fast scale now ...
+        b = @fullsize_buf.scale_simple(@wanted_zoom * @fullsize_buf.width,
+                                       @wanted_zoom * @fullsize_buf.height,
+                                       :nearest)
+        @image.set_from_pixbuf b
 
-	# ... and delay slow scale till later.
+        # ... and delay slow scale till later.
         # FIXME: Allow priority to be left out.
-	GLib.idle_add(GLib::PRIORITY_DEFAULT_IDLE) { update_pixbuf }
+        GLib.idle_add(GLib::PRIORITY_DEFAULT_IDLE) { update_pixbuf }
       end
       return true
     end
