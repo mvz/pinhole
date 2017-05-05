@@ -48,16 +48,6 @@ module Pinhole
       @provider.each { |f|
 	it = @store.append
 
-	gvstr = GObject::Value.new
-	gvstr.init st
-
-	gvpb = GObject::Value.new
-	gvpb.init pt
-
-	gvstr.set_string f
-	# FIXME: Automate wrapping in GValues.
-	@store.set_value it, 0, gvstr
-
         unless File.exist? f
           warn "File #{f} does not exist"
           next
@@ -74,11 +64,9 @@ module Pinhole
 	  pb = GdkPixbuf::Pixbuf.new_from_file(iconpath)
 	end
 
-	gvpb.set_instance pb
-	@store.set_value it, 1, gvpb
-
-	gvstr.set_string File.basename(f)
-	@store.set_value it, 2, gvstr
+	@store.set_value it, 0, f
+	@store.set_value it, 1, pb
+	@store.set_value it, 2, File.basename(f)
       }
 
       @browser.set_model @store
