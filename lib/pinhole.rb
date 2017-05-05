@@ -20,7 +20,7 @@ module Pinhole
   # they will be joined to the end of the libray path using
   # <tt>File.join</tt>.
   #
-  def self.libpath( *args )
+  def self.libpath(*args)
     args.empty? ? LIBPATH : ::File.join(LIBPATH, args.flatten)
   end
 
@@ -28,7 +28,7 @@ module Pinhole
   # they will be joined to the end of the path using
   # <tt>File.join</tt>.
   #
-  def self.path( *args )
+  def self.path(*args)
     args.empty? ? PATH : ::File.join(PATH, args.flatten)
   end
 
@@ -37,7 +37,7 @@ module Pinhole
   # in. Optionally, a specific _directory_ name can be passed in such that
   # the _filename_ does not have to be equivalent to the directory.
   #
-  def self.require_all_libs_relative_to( fname, dir = nil )
+  def self.require_all_libs_relative_to(fname, dir = nil)
     dir ||= ::File.basename(fname, '.*')
     search_me = ::File.expand_path(
         ::File.join(::File.dirname(fname), dir, '**', '*.rb'))
