@@ -57,7 +57,7 @@ module Pinhole
       update_scrollbar_policy
     end
 
-    def load_image_from_file filename
+    def load_image_from_file(filename)
       @fullsize_buf = GdkPixbuf::Pixbuf.new_from_file(filename)
     end
 
@@ -94,7 +94,7 @@ module Pinhole
 	1.0].min
     end
 
-    def set_zoom zoom
+    def set_zoom(zoom)
       return if zoom <= 0.0
       @wanted_zoom = zoom
       update_pixbuf
@@ -126,7 +126,7 @@ module Pinhole
       end
     end
 
-    def on_viewport_button_press_event w, e
+    def on_viewport_button_press_event(w, e)
       @dragging = true
       @dragx = e.x_root
       @dragy = e.y_root
@@ -136,12 +136,12 @@ module Pinhole
       @viewport.window.set_cursor Gdk::Cursor.new(:fleur)
     end
 
-    def on_viewport_button_release_event w, e
+    def on_viewport_button_release_event(w, e)
       @dragging = false
       @viewport.window.set_cursor nil
     end
 
-    def on_viewport_motion_notify_event w, e
+    def on_viewport_motion_notify_event(w, e)
       return false unless @dragging
       dx = e.x_root - @dragx
       dy = e.y_root - @dragy
@@ -169,7 +169,7 @@ module Pinhole
       return true
     end
 
-    def set_adjustment adj, val
+    def set_adjustment(adj, val)
       max = adj.upper - adj.page_size
       val = max if val > max
       val = 0 if val < 0
