@@ -58,6 +58,7 @@ module Pinhole
     end
 
     def load_image_from_file(filename)
+      @current_zoom = 0.0 # HACK: Force image reload
       @fullsize_buf = GdkPixbuf::Pixbuf.new_from_file(filename)
     end
 
