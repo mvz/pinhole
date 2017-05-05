@@ -5,3 +5,7 @@ Style/DotPosition:
 # Require lines to fit in pull requests.
 Metrics/LineLength:
   Max: 92
+
+# Do not require empty lines between one-line defs.
+Style/EmptyLineBetweenDefs:
+  AllowAdjacentOneLineDefs: true
