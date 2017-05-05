@@ -42,7 +42,7 @@ module Pinhole
     search_me = ::File.expand_path(
         ::File.join(::File.dirname(fname), dir, '**', '*.rb'))
 
-    Dir.glob(search_me).sort.each {|rb| require rb}
+    Dir.glob(search_me).sort.each { |rb| require rb }
   end
 
 end  # module Pinhole
