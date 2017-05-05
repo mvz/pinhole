@@ -10,6 +10,6 @@ namespace :test do
 end
 
 desc 'Alias to test:run'
-task :test => 'test:run'
+task test: 'test:run'
 
-task :default => 'test:run'
+task default: 'test:run'
