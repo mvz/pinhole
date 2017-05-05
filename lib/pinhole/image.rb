@@ -31,14 +31,14 @@ module Pinhole
 
     def update_pixbuf
       return if @current_zoom == @wanted_zoom
-      if @wanted_zoom == 1.0
-        @image.set_from_pixbuf @fullsize_buf
-      else
-        b = @fullsize_buf.scale_simple(@wanted_zoom * @fullsize_buf.width,
-                                       @wanted_zoom * @fullsize_buf.height,
-                                       :bilinear)
-        @image.set_from_pixbuf b
-      end
+      buf = if @wanted_zoom == 1.0
+              @fullsize_buf
+            else
+              @fullsize_buf.scale_simple(@wanted_zoom * @fullsize_buf.width,
+                                         @wanted_zoom * @fullsize_buf.height,
+                                         :bilinear)
+            end
+      @image.set_from_pixbuf buf
       @current_zoom = @wanted_zoom
       GC.start
     end
