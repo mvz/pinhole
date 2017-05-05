@@ -14,12 +14,12 @@ module Pinhole
       @iconview.set_pixbuf_column 1
     end
 
-    def set_model m
+    def set_model(m)
       @iconview.set_model m
     end
 
-    def set_action &block
-      GObject.signal_connect @iconview, "item-activated", &block
+    def set_action(&block)
+      GObject.signal_connect @iconview, 'item-activated', &block
     end
 
     def unfullscreen; end
@@ -30,4 +30,3 @@ module Pinhole
     def zoom_fit; end
   end
 end
-

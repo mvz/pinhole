@@ -1,3 +1,7 @@
+require 'pinhole'
+require 'pinhole/browser'
+require 'pinhole/image'
+
 module Pinhole
   class MainWindow
     GVS = []
@@ -10,8 +14,8 @@ module Pinhole
 
       setup_ui
 
-      @window = built_object("mainwindow")
-      @box = built_object("mainvbox")
+      @window = built_object('mainwindow')
+      @box = built_object('mainvbox')
 
       @browser = Browser.new
       @image = Image.new
@@ -22,52 +26,51 @@ module Pinhole
       @active_widget = @browser
 
       @browser.set_action do |iv, path|
-	model = iv.model
+        model = iv.model
 
-	r, it = model.get_iter(path)
+        r, it = model.get_iter(path)
 
         next unless r
 
-	filename = model.get_value(it, 0)
+        filename = model.get_value(it, 0)
 
-	@image.load_image_from_file(filename)
+        @image.load_image_from_file(filename)
 
-	@browser.set_visible false
-	@image.set_visible true
-	@active_widget = @image
+        @browser.set_visible false
+        @image.set_visible true
+        @active_widget = @image
 
-	@image.zoom_fit
-	@image.show_all
+        @image.zoom_fit
+        @image.show_all
       end
 
-      #@store = Gtk::ListStore.new(String, GdkPixbuf::Pixbuf, String)
-      st = GObject.type_from_name "gchararray"
+      st = GObject.type_from_name 'gchararray'
       pt = GdkPixbuf::Pixbuf.gtype
       @store = Gtk::ListStore.new([st, pt, st])
 
-      @provider.each { |f|
-	it = @store.append
+      @provider.each do |f|
+        it = @store.append
 
         unless File.exist? f
           warn "File #{f} does not exist"
           next
         end
-	gf = Gio.file_new_for_path(f)
-	inf = gf.query_info "thumbnail::*", :none, nil
+        gf = Gio.file_new_for_path(f)
+        inf = gf.query_info 'thumbnail::*', :none, nil
 
-	iconpath = inf.get_attribute_byte_string "thumbnail::path"
+        iconpath = inf.get_attribute_byte_string 'thumbnail::path'
 
-	if iconpath.nil?
-	  puts "Scaling image as thumbnail"
-	  pb = GdkPixbuf::Pixbuf.new_from_file_at_size(f, 128, 128)
-	else
-	  pb = GdkPixbuf::Pixbuf.new_from_file(iconpath)
-	end
+        if iconpath.nil?
+          puts 'Scaling image as thumbnail'
+          pb = GdkPixbuf::Pixbuf.new_from_file_at_size(f, 128, 128)
+        else
+          pb = GdkPixbuf::Pixbuf.new_from_file(iconpath)
+        end
 
-	@store.set_value it, 0, f
-	@store.set_value it, 1, pb
-	@store.set_value it, 2, File.basename(f)
-      }
+        @store.set_value it, 0, f
+        @store.set_value it, 1, pb
+        @store.set_value it, 2, File.basename(f)
+      end
 
       @browser.set_model @store
 
@@ -83,61 +86,60 @@ module Pinhole
 
     def setup_ui
       @builder = Gtk::Builder.new
-      @builder.add_from_file Pinhole.path "data", "pinhole.ui"
+      @builder.add_from_file Pinhole.path 'data', 'pinhole.ui'
       @builder.connect_signals { |handler_name| method(handler_name) }
     end
 
-    def built_object name
+    def built_object(name)
       @builder.get_object(name)
     end
 
-    def on_mainwindow_destroy w, u
+    def on_mainwindow_destroy(_w, _u)
       Gtk.main_quit
     end
 
-    def on_mainwindow_window_state_event w, e, u
+    def on_mainwindow_window_state_event(_w, e, _u)
       if e.new_window_state[:fullscreen]
-	built_object("menubar").set_visible false
-	built_object("statusbar").set_visible false
-	@active_widget.fullscreen
-	@fullscreen = true
+        built_object('menubar').set_visible false
+        built_object('statusbar').set_visible false
+        @active_widget.fullscreen
+        @fullscreen = true
       else
-	built_object("menubar").set_visible true
-	built_object("statusbar").set_visible true
-	@active_widget.unfullscreen
-	@fullscreen = false
+        built_object('menubar').set_visible true
+        built_object('statusbar').set_visible true
+        @active_widget.unfullscreen
+        @fullscreen = false
       end
     end
 
-    def on_menu_fullscreen_activate w, u
-      if @fullscreen then
-	@window.unfullscreen
+    def on_menu_fullscreen_activate(_w, _u)
+      if @fullscreen
+        @window.unfullscreen
       else
-	@window.fullscreen
+        @window.fullscreen
       end
     end
 
-    def on_menu_zoom_in_activate w, u
+    def on_menu_zoom_in_activate(_w, _u)
       @active_widget.zoom_in
     end
 
-    def on_menu_zoom_out_activate w, u
+    def on_menu_zoom_out_activate(_w, _u)
       @active_widget.zoom_out
     end
 
-    def on_menu_zoom_fit_activate w, u
+    def on_menu_zoom_fit_activate(_w, _u)
       @active_widget.zoom_fit
     end
 
-    def on_menu_zoom_100_activate w, u
+    def on_menu_zoom_100_activate(_w, _u)
       @active_widget.zoom_100
     end
 
-    def on_menu_cancel_activate w, u
+    def on_menu_cancel_activate(_w, _u)
       @image.set_visible false
       @browser.set_visible true
       @active_widget = @browser
     end
   end
 end
-

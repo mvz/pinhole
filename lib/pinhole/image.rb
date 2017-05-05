@@ -4,7 +4,7 @@ module Pinhole
     extend Forwardable
     def_delegators :@widget, :to_ptr, :set_visible, :show_all
 
-    _, COLOR_BLACK = Gdk.color_parse "black"
+    _, COLOR_BLACK = Gdk.color_parse 'black'
 
     def initialize
       @widget = Gtk::ScrolledWindow.new nil, nil
@@ -15,7 +15,7 @@ module Pinhole
 
       # This line is needed to prevent the viewport from forcing a minimum
       # size on the window when the scroll bars are not visible
-      @viewport.set_size_request(0,0)
+      @viewport.set_size_request(0, 0)
 
       setup_viewport_signal_handlers
 
@@ -32,12 +32,12 @@ module Pinhole
     def update_pixbuf
       return if @current_zoom == @wanted_zoom
       if @wanted_zoom == 1.0
-	@image.set_from_pixbuf @fullsize_buf
+        @image.set_from_pixbuf @fullsize_buf
       else
-	b = @fullsize_buf.scale_simple(@wanted_zoom * @fullsize_buf.get_width,
-				       @wanted_zoom * @fullsize_buf.get_height,
-				       :bilinear)
-	@image.set_from_pixbuf b
+        b = @fullsize_buf.scale_simple(@wanted_zoom * @fullsize_buf.get_width,
+                                       @wanted_zoom * @fullsize_buf.get_height,
+                                       :bilinear)
+        @image.set_from_pixbuf b
       end
       @current_zoom = @wanted_zoom
       GC.start
@@ -57,7 +57,7 @@ module Pinhole
       update_scrollbar_policy
     end
 
-    def load_image_from_file filename
+    def load_image_from_file(filename)
       @fullsize_buf = GdkPixbuf::Pixbuf.new_from_file(filename)
     end
 
@@ -90,43 +90,43 @@ module Pinhole
     def image_fit_zoom
       alloc = @widget.allocation
       [(1.0 * alloc.width) / @fullsize_buf.width,
-	(1.0 * alloc.height) / @fullsize_buf.height,
-	1.0].min
+       (1.0 * alloc.height) / @fullsize_buf.height,
+       1.0].min
     end
 
-    def set_zoom zoom
+    def set_zoom(zoom)
       return if zoom <= 0.0
       @wanted_zoom = zoom
       update_pixbuf
     end
 
     def update_scrollbar_policy
-      if @fullscreen or @zoom_mode == :fit
-	@widget.set_policy(:never, :never)
+      if @fullscreen || @zoom_mode == :fit
+        @widget.set_policy(:never, :never)
       else
-	@widget.set_policy(:automatic, :automatic)
+        @widget.set_policy(:automatic, :automatic)
       end
     end
 
     def setup_viewport_signal_handlers
-      GObject.signal_connect @viewport, "button-press-event" do |w, e|
-	on_viewport_button_press_event w, e
+      GObject.signal_connect @viewport, 'button-press-event' do |w, e|
+        on_viewport_button_press_event w, e
       end
 
-      GObject.signal_connect @viewport, "button-release-event" do |w, e|
-	on_viewport_button_release_event w, e
+      GObject.signal_connect @viewport, 'button-release-event' do |w, e|
+        on_viewport_button_release_event w, e
       end
 
-      GObject.signal_connect @viewport, "motion-notify-event" do |w, e|
-	on_viewport_motion_notify_event w, e
+      GObject.signal_connect @viewport, 'motion-notify-event' do |w, e|
+        on_viewport_motion_notify_event w, e
       end
 
-      GObject.signal_connect @viewport, "size-allocate" do
-	on_viewport_size_allocate
+      GObject.signal_connect @viewport, 'size-allocate' do
+        on_viewport_size_allocate
       end
     end
 
-    def on_viewport_button_press_event w, e
+    def on_viewport_button_press_event(_w, e)
       @dragging = true
       @dragx = e.x_root
       @dragy = e.y_root
@@ -136,12 +136,12 @@ module Pinhole
       @viewport.window.set_cursor Gdk::Cursor.new(:fleur)
     end
 
-    def on_viewport_button_release_event w, e
+    def on_viewport_button_release_event(_w, _e)
       @dragging = false
       @viewport.window.set_cursor nil
     end
 
-    def on_viewport_motion_notify_event w, e
+    def on_viewport_motion_notify_event(_w, e)
       return false unless @dragging
       dx = e.x_root - @dragx
       dy = e.y_root - @dragy
@@ -152,24 +152,24 @@ module Pinhole
 
     def on_viewport_size_allocate
       if @zoom_mode == :fit
-	zoom = image_fit_zoom
-	return true if zoom == @wanted_zoom
-	@wanted_zoom = zoom
+        zoom = image_fit_zoom
+        return true if zoom == @wanted_zoom
+        @wanted_zoom = zoom
 
-	# Trick from Eye of Gnome: do fast scale now ...
-	b = @fullsize_buf.scale_simple(@wanted_zoom * @fullsize_buf.width,
-				       @wanted_zoom * @fullsize_buf.height,
-				       :nearest)
-	@image.set_from_pixbuf b
+        # Trick from Eye of Gnome: do fast scale now ...
+        b = @fullsize_buf.scale_simple(@wanted_zoom * @fullsize_buf.width,
+                                       @wanted_zoom * @fullsize_buf.height,
+                                       :nearest)
+        @image.set_from_pixbuf b
 
-	# ... and delay slow scale till later.
+        # ... and delay slow scale till later.
         # FIXME: Allow priority to be left out.
-	GLib.idle_add(GLib::PRIORITY_DEFAULT_IDLE) { update_pixbuf }
+        GLib.idle_add(GLib::PRIORITY_DEFAULT_IDLE) { update_pixbuf }
       end
-      return true
+      true
     end
 
-    def set_adjustment adj, val
+    def set_adjustment(adj, val)
       max = adj.upper - adj.page_size
       val = max if val > max
       val = 0 if val < 0
