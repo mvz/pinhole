@@ -110,7 +110,7 @@ module Pinhole
     end
 
     def on_menu_fullscreen_activate(_w, _u)
-      if @fullscreen then
+      if @fullscreen
         @window.unfullscreen
       else
         @window.fullscreen
