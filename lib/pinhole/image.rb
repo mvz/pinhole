@@ -34,8 +34,8 @@ module Pinhole
       if @wanted_zoom == 1.0
         @image.set_from_pixbuf @fullsize_buf
       else
-        b = @fullsize_buf.scale_simple(@wanted_zoom * @fullsize_buf.get_width,
-                                       @wanted_zoom * @fullsize_buf.get_height,
+        b = @fullsize_buf.scale_simple(@wanted_zoom * @fullsize_buf.width,
+                                       @wanted_zoom * @fullsize_buf.height,
                                        :bilinear)
         @image.set_from_pixbuf b
       end
