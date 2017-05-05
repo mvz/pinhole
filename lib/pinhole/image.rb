@@ -126,7 +126,7 @@ module Pinhole
       end
     end
 
-    def on_viewport_button_press_event(w, e)
+    def on_viewport_button_press_event(_w, e)
       @dragging = true
       @dragx = e.x_root
       @dragy = e.y_root
@@ -136,12 +136,12 @@ module Pinhole
       @viewport.window.set_cursor Gdk::Cursor.new(:fleur)
     end
 
-    def on_viewport_button_release_event(w, e)
+    def on_viewport_button_release_event(_w, _e)
       @dragging = false
       @viewport.window.set_cursor nil
     end
 
-    def on_viewport_motion_notify_event(w, e)
+    def on_viewport_motion_notify_event(_w, e)
       return false unless @dragging
       dx = e.x_root - @dragx
       dy = e.y_root - @dragy
