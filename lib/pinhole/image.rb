@@ -166,7 +166,7 @@ module Pinhole
         # FIXME: Allow priority to be left out.
         GLib.idle_add(GLib::PRIORITY_DEFAULT_IDLE) { update_pixbuf }
       end
-      return true
+      true
     end
 
     def set_adjustment(adj, val)
