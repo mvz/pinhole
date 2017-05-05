@@ -15,7 +15,7 @@ module Pinhole
 
       # This line is needed to prevent the viewport from forcing a minimum
       # size on the window when the scroll bars are not visible
-      @viewport.set_size_request(0,0)
+      @viewport.set_size_request(0, 0)
 
       setup_viewport_signal_handlers
 
