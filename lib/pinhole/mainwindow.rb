@@ -10,8 +10,8 @@ module Pinhole
 
       setup_ui
 
-      @window = built_object("mainwindow")
-      @box = built_object("mainvbox")
+      @window = built_object('mainwindow')
+      @box = built_object('mainvbox')
 
       @browser = Browser.new
       @image = Image.new
@@ -41,7 +41,7 @@ module Pinhole
       end
 
       #@store = Gtk::ListStore.new(String, GdkPixbuf::Pixbuf, String)
-      st = GObject.type_from_name "gchararray"
+      st = GObject.type_from_name 'gchararray'
       pt = GdkPixbuf::Pixbuf.gtype
       @store = Gtk::ListStore.new([st, pt, st])
 
@@ -53,12 +53,12 @@ module Pinhole
           next
         end
         gf = Gio.file_new_for_path(f)
-        inf = gf.query_info "thumbnail::*", :none, nil
+        inf = gf.query_info 'thumbnail::*', :none, nil
 
-        iconpath = inf.get_attribute_byte_string "thumbnail::path"
+        iconpath = inf.get_attribute_byte_string 'thumbnail::path'
 
         if iconpath.nil?
-          puts "Scaling image as thumbnail"
+          puts 'Scaling image as thumbnail'
           pb = GdkPixbuf::Pixbuf.new_from_file_at_size(f, 128, 128)
         else
           pb = GdkPixbuf::Pixbuf.new_from_file(iconpath)
@@ -83,7 +83,7 @@ module Pinhole
 
     def setup_ui
       @builder = Gtk::Builder.new
-      @builder.add_from_file Pinhole.path "data", "pinhole.ui"
+      @builder.add_from_file Pinhole.path 'data', 'pinhole.ui'
       @builder.connect_signals { |handler_name| method(handler_name) }
     end
 
@@ -97,13 +97,13 @@ module Pinhole
 
     def on_mainwindow_window_state_event(_w, e, _u)
       if e.new_window_state[:fullscreen]
-        built_object("menubar").set_visible false
-        built_object("statusbar").set_visible false
+        built_object('menubar').set_visible false
+        built_object('statusbar').set_visible false
         @active_widget.fullscreen
         @fullscreen = true
       else
-        built_object("menubar").set_visible true
-        built_object("statusbar").set_visible true
+        built_object('menubar').set_visible true
+        built_object('statusbar').set_visible true
         @active_widget.unfullscreen
         @fullscreen = false
       end

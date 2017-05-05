@@ -1,5 +1,5 @@
-require "dbus"
-require "cgi"
+require 'dbus'
+require 'cgi'
 
 module Pinhole
   class TrackerProvider
@@ -7,7 +7,7 @@ module Pinhole
 
     def initialize
       @session_bus = DBus::SessionBus.instance
-      @tracker = @session_bus.service("org.freedesktop.Tracker1")
+      @tracker = @session_bus.service('org.freedesktop.Tracker1')
     end
 
     def each
@@ -34,7 +34,7 @@ module Pinhole
     private
 
     def searcher
-      @searcher ||= get_iface("Resources")
+      @searcher ||= get_iface('Resources')
     end
 
     def get_iface(name)
