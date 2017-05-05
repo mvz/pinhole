@@ -88,9 +88,9 @@ module Pinhole
     private
 
     def image_fit_zoom
-      alloc = @widget.get_allocation
-      [(1.0 * alloc.width) / @fullsize_buf.get_width,
-	(1.0 * alloc.height) / @fullsize_buf.get_height,
+      alloc = @widget.allocation
+      [(1.0 * alloc.width) / @fullsize_buf.width,
+	(1.0 * alloc.height) / @fullsize_buf.height,
 	1.0].min
     end
 
@@ -131,14 +131,14 @@ module Pinhole
       @dragx = e.x_root
       @dragy = e.y_root
 
-      @scrollx = @viewport.get_hadjustment.get_value
-      @scrolly = @viewport.get_vadjustment.get_value
-      @viewport.get_window.set_cursor Gdk::Cursor.new(:fleur)
+      @scrollx = @viewport.hadjustment.value
+      @scrolly = @viewport.vadjustment.value
+      @viewport.window.set_cursor Gdk::Cursor.new(:fleur)
     end
 
     def on_viewport_button_release_event w, e
       @dragging = false
-      @viewport.get_window.set_cursor nil
+      @viewport.window.set_cursor nil
     end
 
     def on_viewport_motion_notify_event w, e
@@ -146,8 +146,8 @@ module Pinhole
       dx = e.x_root - @dragx
       dy = e.y_root - @dragy
 
-      set_adjustment(@viewport.get_hadjustment, @scrollx - dx)
-      set_adjustment(@viewport.get_vadjustment, @scrolly - dy)
+      set_adjustment(@viewport.hadjustment, @scrollx - dx)
+      set_adjustment(@viewport.vadjustment, @scrolly - dy)
     end
 
     def on_viewport_size_allocate
@@ -157,8 +157,8 @@ module Pinhole
 	@wanted_zoom = zoom
 
 	# Trick from Eye of Gnome: do fast scale now ...
-	b = @fullsize_buf.scale_simple(@wanted_zoom * @fullsize_buf.get_width,
-				       @wanted_zoom * @fullsize_buf.get_height,
+	b = @fullsize_buf.scale_simple(@wanted_zoom * @fullsize_buf.width,
+				       @wanted_zoom * @fullsize_buf.height,
 				       :nearest)
 	@image.set_from_pixbuf b
 
@@ -170,7 +170,7 @@ module Pinhole
     end
 
     def set_adjustment adj, val
-      max = adj.get_upper - adj.get_page_size
+      max = adj.upper - adj.page_size
       val = max if val > max
       val = 0 if val < 0
       adj.set_value val

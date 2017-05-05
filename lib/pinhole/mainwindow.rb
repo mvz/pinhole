@@ -22,7 +22,7 @@ module Pinhole
       @active_widget = @browser
 
       @browser.set_action do |iv, path|
-	model = iv.get_model
+	model = iv.model
 
 	r, it = model.get_iter(path)
 
