@@ -4,7 +4,7 @@ require 'pinhole/image'
 
 module Pinhole
   class MainWindow
-    GVS = []
+    GVS = [].freeze
     def initialize(provider)
       @provider = provider
     end

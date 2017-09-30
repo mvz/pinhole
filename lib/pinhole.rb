@@ -4,7 +4,7 @@ GirFFI.setup :GdkPixbuf, '2.0'
 
 module Pinhole
   # :stopdoc:
-  VERSION = '1.0.0'
+  VERSION = '1.0.0'.freeze
   LIBPATH = ::File.expand_path(::File.dirname(__FILE__)) + ::File::SEPARATOR
   PATH = ::File.dirname(LIBPATH) + ::File::SEPARATOR
   # :startdoc:
