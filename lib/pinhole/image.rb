@@ -65,25 +65,25 @@ module Pinhole
     def zoom_in
       @zoom_mode = :manual
       update_scrollbar_policy
-      set_zoom @wanted_zoom * 1.15
+      self.wanted_zoom = @wanted_zoom * 1.15
     end
 
     def zoom_out
       @zoom_mode = :manual
       update_scrollbar_policy
-      set_zoom @wanted_zoom / 1.15
+      self.wanted_zoom = @wanted_zoom / 1.15
     end
 
     def zoom_fit
       @zoom_mode = :fit
       update_scrollbar_policy
-      set_zoom image_fit_zoom
+      self.wanted_zoom = image_fit_zoom
     end
 
     def zoom_100
       @zoom_mode = :manual
       update_scrollbar_policy
-      set_zoom 1.0
+      self.wanted_zoom = 1.0
     end
 
     private
@@ -95,7 +95,7 @@ module Pinhole
        1.0].min
     end
 
-    def set_zoom(zoom)
+    def wanted_zoom=(zoom)
       return if zoom <= 0.0
       @wanted_zoom = zoom
       update_pixbuf
