@@ -1,6 +1,8 @@
+require File.join(File.dirname(__FILE__), 'lib/pinhole/version.rb')
+
 Gem::Specification.new do |s|
   s.name = 'pinhole'
-  s.version = '0.1.5'
+  s.version = Pinhole::VERSION
 
   s.summary = 'Image Viewer'
   s.description = 'Tracker-based image viewer for GNOME'

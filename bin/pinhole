@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'pinhole/tracker_provider'
-require 'pinhole/mainwindow'
+require 'pinhole'
 
 provider = Pinhole::TrackerProvider.new
 Pinhole::MainWindow.new(provider).run

@@ -1,4 +1,3 @@
-require 'pinhole'
 require 'pinhole/browser'
 require 'pinhole/image'
 
