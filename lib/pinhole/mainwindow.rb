@@ -72,7 +72,7 @@ module Pinhole
         @store.set_value it, 2, File.basename(f)
       end
 
-      @browser.set_model @store
+      @browser.model = @store
 
       @window.show_all
 

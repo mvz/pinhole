@@ -14,7 +14,7 @@ module Pinhole
       @iconview.set_pixbuf_column 1
     end
 
-    def set_model(m)
+    def model=(m)
       @iconview.set_model m
     end
 
