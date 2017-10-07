@@ -1,5 +1,6 @@
 require 'forwardable'
 module Pinhole
+  # Image viewer. Displays a single image and allows zooming
   class Image
     extend Forwardable
     def_delegators :@widget, :to_ptr, :set_visible, :show_all

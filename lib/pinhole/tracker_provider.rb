@@ -2,6 +2,7 @@ require 'dbus'
 require 'cgi'
 
 module Pinhole
+  # Image provider using to the Tracker file searcher as its backend
   class TrackerProvider
     include Enumerable
 

@@ -2,6 +2,7 @@ require 'gir_ffi-gtk2'
 
 GirFFI.setup :GdkPixbuf, '2.0'
 
+# Main module
 module Pinhole
   # :stopdoc:
   LIBPATH = ::File.expand_path(::File.dirname(__FILE__)) + ::File::SEPARATOR

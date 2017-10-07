@@ -2,6 +2,7 @@ require 'pinhole/browser'
 require 'pinhole/image'
 
 module Pinhole
+  # Main window for the Pinhole application
   class MainWindow
     GVS = [].freeze
     def initialize(provider)
