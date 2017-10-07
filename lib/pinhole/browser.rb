@@ -18,7 +18,7 @@ module Pinhole
       @iconview.set_model m
     end
 
-    def set_action(&block)
+    def connect_activation_signal(&block)
       GObject.signal_connect @iconview, 'item-activated', &block
     end
 

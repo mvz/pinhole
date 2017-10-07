@@ -25,8 +25,8 @@ module Pinhole
 
       @active_widget = @browser
 
-      @browser.set_action do |iv, path|
-        model = iv.model
+      @browser.connect_activation_signal do |view, path|
+        model = view.model
 
         r, it = model.get_iter(path)
 
