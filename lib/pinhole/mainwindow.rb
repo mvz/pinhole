@@ -1,10 +1,9 @@
-require 'pinhole'
 require 'pinhole/browser'
 require 'pinhole/image'
 
 module Pinhole
+  # Main window for the Pinhole application
   class MainWindow
-    GVS = []
     def initialize(provider)
       @provider = provider
     end
@@ -25,8 +24,8 @@ module Pinhole
 
       @active_widget = @browser
 
-      @browser.set_action do |iv, path|
-        model = iv.model
+      @browser.connect_activation_signal do |view, path|
+        model = view.model
 
         r, it = model.get_iter(path)
 
@@ -72,7 +71,7 @@ module Pinhole
         @store.set_value it, 2, File.basename(f)
       end
 
-      @browser.set_model @store
+      @browser.model = @store
 
       @window.show_all
 

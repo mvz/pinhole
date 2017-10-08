@@ -1,5 +1,6 @@
 require 'forwardable'
 module Pinhole
+  # Image browser. Displays images as a set of icons.
   class Browser
     extend Forwardable
     def_delegators :@widget, :to_ptr, :set_visible
@@ -14,11 +15,11 @@ module Pinhole
       @iconview.set_pixbuf_column 1
     end
 
-    def set_model(m)
+    def model=(m)
       @iconview.set_model m
     end
 
-    def set_action(&block)
+    def connect_activation_signal(&block)
       GObject.signal_connect @iconview, 'item-activated', &block
     end
 

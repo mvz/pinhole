@@ -2,6 +2,7 @@ require 'dbus'
 require 'cgi'
 
 module Pinhole
+  # Image provider using to the Tracker file searcher as its backend
   class TrackerProvider
     include Enumerable
 
@@ -25,7 +26,7 @@ module Pinhole
       "
 
       list[0].each do |e|
-        yield CGI.unescape(e[0].gsub(/file:\/\//, '')) # if e[3] != ""
+        yield CGI.unescape(e[0].gsub(%r{file://}, '')) # if e[3] != ""
       end
     end
 

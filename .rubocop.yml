@@ -1,11 +1,23 @@
 # Dot at end of line makes it clearer that the line is not done
-Style/DotPosition:
+Layout/DotPosition:
   EnforcedStyle: trailing
+
+# Do not require empty lines between one-line defs.
+Layout/EmptyLineBetweenDefs:
+  AllowAdjacentOneLineDefs: true
+
+# TODO: Lower Max and fix offenses
+Metrics/AbcSize:
+  Max: 45
+
+# TODO: Lower Max and fix offenses
+Metrics/ClassLength:
+  Max: 137
 
 # Require lines to fit in pull requests.
 Metrics/LineLength:
   Max: 92
 
-# Do not require empty lines between one-line defs.
-Style/EmptyLineBetweenDefs:
-  AllowAdjacentOneLineDefs: true
+# TODO: Lower Max and fix offenses
+Metrics/MethodLength:
+  Max: 48
