@@ -6,6 +6,18 @@ Layout/DotPosition:
 Layout/EmptyLineBetweenDefs:
   AllowAdjacentOneLineDefs: true
 
+# TODO: Lower Max and fix offenses
+Metrics/AbcSize:
+  Max: 45
+
+# TODO: Lower Max and fix offenses
+Metrics/ClassLength:
+  Max: 137
+
 # Require lines to fit in pull requests.
 Metrics/LineLength:
   Max: 92
+
+# TODO: Lower Max and fix offenses
+Metrics/MethodLength:
+  Max: 48
