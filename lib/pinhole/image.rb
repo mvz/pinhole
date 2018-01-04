@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'forwardable'
 module Pinhole
   # Image viewer. Displays a single image and allows zooming

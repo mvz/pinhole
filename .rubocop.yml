@@ -1,3 +1,6 @@
+AllCops:
+  TargetRubyVersion: 2.3
+
 # Dot at end of line makes it clearer that the line is not done
 Layout/DotPosition:
   EnforcedStyle: trailing
@@ -21,3 +24,6 @@ Metrics/LineLength:
 # TODO: Lower Max and fix offenses
 Metrics/MethodLength:
   Max: 48
+
+Style/NumericPredicate:
+  Enabled: false

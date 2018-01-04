@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'forwardable'
 module Pinhole
   # Image browser. Displays images as a set of icons.
