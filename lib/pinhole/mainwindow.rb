@@ -95,12 +95,12 @@ module Pinhole
       @builder.get_object(name)
     end
 
-    def on_mainwindow_destroy(_w, _u)
+    def on_mainwindow_destroy(_widget, _user_data)
       Gtk.main_quit
     end
 
-    def on_mainwindow_window_state_event(_w, e, _u)
-      if e.new_window_state[:fullscreen]
+    def on_mainwindow_window_state_event(_widget, event, _user_data)
+      if event.new_window_state[:fullscreen]
         built_object('menubar').set_visible false
         built_object('statusbar').set_visible false
         @active_widget.fullscreen
@@ -113,7 +113,7 @@ module Pinhole
       end
     end
 
-    def on_menu_fullscreen_activate(_w, _u)
+    def on_menu_fullscreen_activate(_action, _user_data)
       if @fullscreen
         @window.unfullscreen
       else
@@ -121,23 +121,23 @@ module Pinhole
       end
     end
 
-    def on_menu_zoom_in_activate(_w, _u)
+    def on_menu_zoom_in_activate(_action, _user_data)
       @active_widget.zoom_in
     end
 
-    def on_menu_zoom_out_activate(_w, _u)
+    def on_menu_zoom_out_activate(_action, _user_data)
       @active_widget.zoom_out
     end
 
-    def on_menu_zoom_fit_activate(_w, _u)
+    def on_menu_zoom_fit_activate(_action, _user_data)
       @active_widget.zoom_fit
     end
 
-    def on_menu_zoom_100_activate(_w, _u)
+    def on_menu_zoom_100_activate(_action, _user_data)
       @active_widget.zoom_100
     end
 
-    def on_menu_cancel_activate(_w, _u)
+    def on_menu_cancel_activate(_action, _user_data)
       @image.set_visible false
       @browser.set_visible true
       @active_widget = @browser

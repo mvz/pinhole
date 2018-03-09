@@ -113,16 +113,16 @@ module Pinhole
     end
 
     def setup_viewport_signal_handlers
-      GObject.signal_connect @viewport, 'button-press-event' do |w, e|
-        on_viewport_button_press_event w, e
+      GObject.signal_connect @viewport, 'button-press-event' do |widget, event|
+        on_viewport_button_press_event widget, event
       end
 
-      GObject.signal_connect @viewport, 'button-release-event' do |w, e|
-        on_viewport_button_release_event w, e
+      GObject.signal_connect @viewport, 'button-release-event' do |widget, event|
+        on_viewport_button_release_event widget, event
       end
 
-      GObject.signal_connect @viewport, 'motion-notify-event' do |w, e|
-        on_viewport_motion_notify_event w, e
+      GObject.signal_connect @viewport, 'motion-notify-event' do |widget, event|
+        on_viewport_motion_notify_event widget, event
       end
 
       GObject.signal_connect @viewport, 'size-allocate' do
@@ -130,25 +130,25 @@ module Pinhole
       end
     end
 
-    def on_viewport_button_press_event(_w, e)
+    def on_viewport_button_press_event(_widget, event)
       @dragging = true
-      @dragx = e.x_root
-      @dragy = e.y_root
+      @dragx = event.x_root
+      @dragy = event.y_root
 
       @scrollx = @viewport.hadjustment.value
       @scrolly = @viewport.vadjustment.value
       @viewport.window.set_cursor Gdk::Cursor.new(:fleur)
     end
 
-    def on_viewport_button_release_event(_w, _e)
+    def on_viewport_button_release_event(_widget, _event)
       @dragging = false
       @viewport.window.set_cursor nil
     end
 
-    def on_viewport_motion_notify_event(_w, e)
+    def on_viewport_motion_notify_event(_widget, event)
       return false unless @dragging
-      dx = e.x_root - @dragx
-      dy = e.y_root - @dragy
+      dx = event.x_root - @dragx
+      dy = event.y_root - @dragy
 
       set_adjustment(@viewport.hadjustment, @scrollx - dx)
       set_adjustment(@viewport.vadjustment, @scrolly - dy)
