@@ -19,6 +19,6 @@ Gem::Specification.new do |s|
   s.test_files = Dir['test/**/*.rb']
 
   s.add_dependency('gir_ffi-gtk', ['~> 0.12.0'])
-  s.add_dependency('ruby-dbus', ['~> 0.14.0'])
+  s.add_dependency('ruby-dbus', ['~> 0.15.0'])
   s.add_development_dependency('rake', ['~> 12.0'])
 end
