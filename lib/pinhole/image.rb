@@ -34,6 +34,7 @@ module Pinhole
 
     def update_pixbuf
       return if @current_zoom == @wanted_zoom
+
       buf = if @wanted_zoom == 1.0
               @fullsize_buf
             else
@@ -100,6 +101,7 @@ module Pinhole
 
     def wanted_zoom=(zoom)
       return if zoom <= 0.0
+
       @wanted_zoom = zoom
       update_pixbuf
     end
@@ -147,6 +149,7 @@ module Pinhole
 
     def on_viewport_motion_notify_event(_widget, event)
       return false unless @dragging
+
       dx = event.x_root - @dragx
       dy = event.y_root - @dragy
 
@@ -158,6 +161,7 @@ module Pinhole
       if @zoom_mode == :fit
         zoom = image_fit_zoom
         return true if zoom == @wanted_zoom
+
         @wanted_zoom = zoom
 
         # Trick from Eye of Gnome: do fast scale now ...

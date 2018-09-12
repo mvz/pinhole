@@ -44,6 +44,7 @@ module Pinhole
       unless o.has_iface? "org.freedesktop.Tracker1.#{name}"
         raise "We have no #{name} interface"
       end
+
       o["org.freedesktop.Tracker1.#{name}"]
     end
   end
