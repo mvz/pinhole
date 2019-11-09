@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'dbus'
-require 'cgi'
+require "dbus"
+require "cgi"
 
 module Pinhole
   # Image provider using to the Tracker file searcher as its backend
@@ -10,7 +10,7 @@ module Pinhole
 
     def initialize
       @session_bus = DBus::SessionBus.instance
-      @tracker = @session_bus.service('org.freedesktop.Tracker1')
+      @tracker = @session_bus.service("org.freedesktop.Tracker1")
     end
 
     def each
@@ -28,14 +28,14 @@ module Pinhole
       "
 
       list[0].each do |e|
-        yield CGI.unescape(e[0].gsub(%r{file://}, '')) # if e[3] != ""
+        yield CGI.unescape(e[0].gsub(%r{file://}, "")) # if e[3] != ""
       end
     end
 
     private
 
     def searcher
-      @searcher ||= get_iface('Resources')
+      @searcher ||= get_iface("Resources")
     end
 
     def get_iface(name)
