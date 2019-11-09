@@ -1,31 +1,51 @@
-require: rubocop-performance
+require:
+  - rubocop-performance
 
 AllCops:
   TargetRubyVersion: 2.4
 
-# Dot at end of line makes it clearer that the line is not done
-Layout/DotPosition:
-  EnforcedStyle: trailing
+# Don't force lonely closing parentheses
+Layout/MultilineMethodCallBraceLayout:
+  EnforcedStyle: same_line
 
-# Do not require empty lines between one-line defs.
-Layout/EmptyLineBetweenDefs:
-  AllowAdjacentOneLineDefs: true
+# Multi-line method calls should be simply indented. Aligning them makes it
+# even harder to keep a sane line length.
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
 
-# TODO: Lower Max and fix offenses
-Metrics/AbcSize:
-  Max: 45
+# Multi-line assignment should be simply indented. Aligning them makes it even
+# harder to keep a sane line length.
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
 
-# TODO: Lower Max and fix offenses
-Metrics/ClassLength:
-  Max: 137
+# Force consistent spacing independent of block contents
+Layout/SpaceBeforeBlockBraces:
+  EnforcedStyleForEmptyBraces: space
+
+# Allow if (foo = get_foo) style
+Lint/AssignmentInCondition:
+  AllowSafeAssignment: true
 
 # Require lines to fit in pull requests.
 Metrics/LineLength:
   Max: 92
 
-# TODO: Lower Max and fix offenses
-Metrics/MethodLength:
-  Max: 48
+# Allow and/or for control flow only
+Style/AndOr:
+  EnforcedStyle: conditionals
 
+# Prefer maths
 Style/NumericPredicate:
   Enabled: false
+
+# Allow explicit return with multiple return values
+Style/RedundantReturn:
+  AllowMultipleReturnValues: true
+
+# Do not commit to use of interpolation
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+# Prefer symbols to look like symbols
+Style/SymbolArray:
+  EnforcedStyle: brackets
