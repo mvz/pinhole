@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'forwardable'
+require "forwardable"
 module Pinhole
   # Image browser. Displays images as a set of icons.
   class Browser
@@ -22,7 +22,7 @@ module Pinhole
     end
 
     def connect_activation_signal(&block)
-      GObject.signal_connect @iconview, 'item-activated', &block
+      GObject.signal_connect @iconview, "item-activated", &block
     end
 
     def unfullscreen; end

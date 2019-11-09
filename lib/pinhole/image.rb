@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-require 'forwardable'
+require "forwardable"
 module Pinhole
   # Image viewer. Displays a single image and allows zooming
   class Image
     extend Forwardable
     def_delegators :@widget, :to_ptr, :set_visible, :show_all
 
-    _, COLOR_BLACK = Gdk.color_parse 'black'
+    _, COLOR_BLACK = Gdk.color_parse "black"
 
     def initialize
       @widget = Gtk::ScrolledWindow.new nil, nil
@@ -115,19 +115,19 @@ module Pinhole
     end
 
     def setup_viewport_signal_handlers
-      GObject.signal_connect @viewport, 'button-press-event' do |widget, event|
+      GObject.signal_connect @viewport, "button-press-event" do |widget, event|
         on_viewport_button_press_event widget, event
       end
 
-      GObject.signal_connect @viewport, 'button-release-event' do |widget, event|
+      GObject.signal_connect @viewport, "button-release-event" do |widget, event|
         on_viewport_button_release_event widget, event
       end
 
-      GObject.signal_connect @viewport, 'motion-notify-event' do |widget, event|
+      GObject.signal_connect @viewport, "motion-notify-event" do |widget, event|
         on_viewport_motion_notify_event widget, event
       end
 
-      GObject.signal_connect @viewport, 'size-allocate' do
+      GObject.signal_connect @viewport, "size-allocate" do
         on_viewport_size_allocate
       end
     end

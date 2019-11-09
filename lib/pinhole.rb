@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'gir_ffi-gtk2'
+require "gir_ffi-gtk2"
 
-GirFFI.setup :GdkPixbuf, '2.0'
+GirFFI.setup :GdkPixbuf, "2.0"
 
 # Main module
 module Pinhole
@@ -20,6 +20,6 @@ module Pinhole
   end
 end
 
-require 'pinhole/tracker_provider'
-require 'pinhole/mainwindow'
-require 'pinhole/version'
+require "pinhole/tracker_provider"
+require "pinhole/mainwindow"
+require "pinhole/version"
