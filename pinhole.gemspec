@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
 
   s.executables = ["pinhole"]
   s.files = Dir["bin/*", "*.md", "*.rdoc", "COPYING", "Rakefile", "Gemfile"] &
-            `git ls-files -z`.split("\0")
+    `git ls-files -z`.split("\0")
   s.test_files = Dir["test/**/*.rb"]
 
   s.add_dependency("gir_ffi-gtk", ["~> 0.15.0"])
