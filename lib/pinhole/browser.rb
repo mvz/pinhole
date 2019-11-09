@@ -26,10 +26,15 @@ module Pinhole
     end
 
     def unfullscreen; end
+
     def fullscreen; end
+
     def zoom_in; end
+
     def zoom_out; end
+
     def zoom_100; end
+
     def zoom_fit; end
   end
 end
