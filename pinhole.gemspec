@@ -13,6 +13,8 @@ Gem::Specification.new do |s|
   s.email = ["matijs@matijs.net"]
   s.homepage = "http://www.github.com/mvz/pinhole"
 
+  s.required_ruby_version = ">= 2.5.0"
+
   s.executables = ["pinhole"]
   s.files = Dir["bin/*", "*.md", "*.rdoc", "COPYING", "Rakefile", "Gemfile"] &
     `git ls-files -z`.split("\0")
