@@ -41,6 +41,10 @@ Lint/AmbiguousBlockAssociation:
 Lint/AssignmentInCondition:
   AllowSafeAssignment: true
 
+# Use snake_case for variable and method names with numbers
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
+
 Performance/StartWith:
   AutoCorrect: true
 
