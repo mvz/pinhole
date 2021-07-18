@@ -20,7 +20,9 @@ Gem::Specification.new do |s|
     `git ls-files -z`.split("\0")
   s.test_files = Dir["test/**/*.rb"]
 
-  s.add_dependency("gir_ffi-gtk", ["~> 0.15.0"])
-  s.add_dependency("gir_ffi-tracker", ["~> 0.15.0"])
-  s.add_development_dependency("rake", ["~> 13.0"])
+  s.add_dependency "gir_ffi-gtk", "~> 0.15.0"
+  s.add_dependency "gir_ffi-tracker", "~> 0.15.0"
+  s.add_development_dependency "rake", "~> 13.0"
+  s.add_development_dependency "rubocop", "~> 1.18.1"
+  s.add_development_dependency "rubocop-performance", "~> 1.11.0"
 end
