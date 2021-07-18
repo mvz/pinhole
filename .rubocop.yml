@@ -1,7 +1,9 @@
 inherit_from: .rubocop_todo.yml
 
 require:
+  - rubocop-packaging
   - rubocop-performance
+  - rubocop-rake
 
 AllCops:
   NewCops: enable
@@ -40,6 +42,10 @@ Lint/AmbiguousBlockAssociation:
 # Allow if (foo = get_foo) style
 Lint/AssignmentInCondition:
   AllowSafeAssignment: true
+
+# Use snake_case for variable and method names with numbers
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
 
 Performance/StartWith:
   AutoCorrect: true
