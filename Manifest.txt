@@ -1,0 +1,8 @@
+README.rdoc
+lib/pinhole.rb
+lib/pinhole/browser.rb
+lib/pinhole/image.rb
+lib/pinhole/mainwindow.rb
+lib/pinhole/tracker_provider.rb
+lib/pinhole/version.rb
+COPYING

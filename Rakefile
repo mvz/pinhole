@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
 require "rake/clean"
+require "rake/manifest/task"
 require "rake/testtask"
+
+Rake::Manifest::Task.new do |t|
+  t.patterns = ["README.rdoc", "lib/**/*", "COPYING"]
+end
 
 namespace :test do
   Rake::TestTask.new(:run) do |t|
@@ -14,4 +19,5 @@ end
 desc "Alias to test:run"
 task test: "test:run"
 
-task default: "test:run"
+task default: ["test:run", "manifest:check"]
+task build: ["manifest:check"]

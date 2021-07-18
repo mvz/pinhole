@@ -16,13 +16,13 @@ Gem::Specification.new do |s|
   s.required_ruby_version = ">= 2.5.0"
 
   s.executables = ["pinhole"]
-  s.files = Dir["bin/*", "*.md", "*.rdoc", "COPYING", "Rakefile", "Gemfile"] &
-    `git ls-files -z`.split("\0")
+  s.files = File.read("Manifest.txt").split
   s.test_files = Dir["test/**/*.rb"]
 
   s.add_dependency "gir_ffi-gtk", "~> 0.15.0"
   s.add_dependency "gir_ffi-tracker", "~> 0.15.0"
   s.add_development_dependency "rake", "~> 13.0"
+  s.add_development_dependency "rake-manifest", "~> 0.2.0"
   s.add_development_dependency "rubocop", "~> 1.18.1"
   s.add_development_dependency "rubocop-packaging", "~> 0.5.0"
   s.add_development_dependency "rubocop-performance", "~> 1.11.0"
