@@ -12,8 +12,7 @@ Pinhole is an image collection browser for Gnome.
 * Pinhole does not have its own database: All data is stored in the images
   themselves, and Pinhole relies on Tracker.
 * Pinhole does currently not do image editing out of the box.
-* Behavior shall be configurable throught the use of plug-ins. For example,
-  another metadata store (such as Beagle) may be used instead.
+* Required Tracker 3.0.
 
 == SYNOPSIS:
 
@@ -33,7 +32,7 @@ In the future, you will be able to do this:
 
 == LICENSE:
 
-Copyright (c) 2009-2011 Matijs van Zuijlen
+Copyright (c) 2009-2011, 2015-2021 Matijs van Zuijlen
 
 Pinhole is free software, distributed under the terms of the GNU General
 Public License, version 2 or later. See the file COPYING for more

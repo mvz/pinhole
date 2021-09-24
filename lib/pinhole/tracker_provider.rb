@@ -29,7 +29,8 @@ module Pinhole
     private
 
     def searcher
-      @searcher ||= Tracker::SparqlConnection.get
+      @searcher ||=
+        Tracker::SparqlConnection.bus_new("org.freedesktop.Tracker3.Miner.Files")
     end
   end
 end
