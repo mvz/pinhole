@@ -25,16 +25,22 @@ module Pinhole
       GObject.signal_connect @iconview, "item-activated", &block
     end
 
-    def unfullscreen; end
+    def unfullscreen
+    end
 
-    def fullscreen; end
+    def fullscreen
+    end
 
-    def zoom_in; end
+    def zoom_in
+    end
 
-    def zoom_out; end
+    def zoom_out
+    end
 
-    def zoom_100; end
+    def zoom_100
+    end
 
-    def zoom_fit; end
+    def zoom_fit
+    end
   end
 end
