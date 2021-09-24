@@ -15,6 +15,8 @@ module Pinhole
       @iconview.set_size_request 0, 0
       @iconview.set_text_column 2
       @iconview.set_pixbuf_column 1
+      @iconview.set_has_tooltip false
+      @iconview.set_item_width 100
     end
 
     def model=(model)

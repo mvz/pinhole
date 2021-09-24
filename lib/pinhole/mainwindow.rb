@@ -65,7 +65,7 @@ module Pinhole
           puts "Scaling image as thumbnail"
           pb = GdkPixbuf::Pixbuf.new_from_file_at_size(f, 128, 128)
         else
-          pb = GdkPixbuf::Pixbuf.new_from_file(iconpath)
+          pb = GdkPixbuf::Pixbuf.new_from_file_at_size(iconpath, 128, 128)
         end
 
         @store.set_value it, 0, f
