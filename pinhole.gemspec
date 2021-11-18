@@ -5,12 +5,11 @@ require File.join(File.dirname(__FILE__), "lib/pinhole/version.rb")
 Gem::Specification.new do |spec|
   spec.name = "pinhole"
   spec.version = Pinhole::VERSION
+  spec.authors = ["Matijs van Zuijlen"]
+  spec.email = ["matijs@matijs.net"]
 
   spec.summary = "Image Viewer"
   spec.description = "Tracker-based image viewer for GNOME"
-
-  spec.authors = ["Matijs van Zuijlen"]
-  spec.email = ["matijs@matijs.net"]
   spec.homepage = "http://www.github.com/mvz/pinhole"
 
   spec.required_ruby_version = ">= 2.6.0"
@@ -18,6 +17,7 @@ Gem::Specification.new do |spec|
   spec.metadata["rubygems_mfa_required"] = "true"
 
   spec.executables = ["pinhole"]
+
   spec.files = File.read("Manifest.txt").split
   spec.test_files = Dir["test/**/*.rb"]
 
