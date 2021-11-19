@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require File.join(File.dirname(__FILE__), "lib/pinhole/version.rb")
+require_relative "lib/pinhole/version"
 
 Gem::Specification.new do |spec|
   spec.name = "pinhole"
