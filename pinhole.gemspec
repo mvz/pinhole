@@ -21,8 +21,9 @@ Gem::Specification.new do |spec|
   spec.files = File.read("Manifest.txt").split
   spec.test_files = Dir["test/**/*.rb"]
 
-  spec.add_dependency "gir_ffi-gtk", "~> 0.15.0"
-  spec.add_dependency "gir_ffi-tracker", "~> 0.15.0"
+  spec.add_runtime_dependency "gir_ffi-gtk", "~> 0.15.0"
+  spec.add_runtime_dependency "gir_ffi-tracker", "~> 0.15.0"
+
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rake-manifest", "~> 0.2.0"
   spec.add_development_dependency "rubocop", "~> 1.24.0"
