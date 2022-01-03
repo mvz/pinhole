@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require File.join(File.dirname(__FILE__), "lib/pinhole/version.rb")
+require_relative "lib/pinhole/version"
 
 Gem::Specification.new do |spec|
   spec.name = "pinhole"
@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.summary = "Image Viewer"
   spec.description = "Tracker-based image viewer for GNOME"
   spec.homepage = "http://www.github.com/mvz/pinhole"
-
+  spec.license = "GPL-2+"
   spec.required_ruby_version = ">= 2.6.0"
 
   spec.metadata["rubygems_mfa_required"] = "true"
@@ -21,8 +21,9 @@ Gem::Specification.new do |spec|
   spec.files = File.read("Manifest.txt").split
   spec.test_files = Dir["test/**/*.rb"]
 
-  spec.add_dependency "gir_ffi-gtk", "~> 0.15.0"
-  spec.add_dependency "gir_ffi-tracker", "~> 0.15.0"
+  spec.add_runtime_dependency "gir_ffi-gtk", "~> 0.15.0"
+  spec.add_runtime_dependency "gir_ffi-tracker", "~> 0.15.0"
+
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rake-manifest", "~> 0.2.0"
   spec.add_development_dependency "rubocop", "~> 1.24.0"
