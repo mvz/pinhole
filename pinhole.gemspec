@@ -19,7 +19,6 @@ Gem::Specification.new do |spec|
   spec.executables = ["pinhole"]
 
   spec.files = File.read("Manifest.txt").split
-  spec.test_files = Dir["test/**/*.rb"]
 
   spec.add_runtime_dependency "gir_ffi-gtk", "~> 0.16.0"
   spec.add_runtime_dependency "gir_ffi-tracker", "~> 0.16.0"
