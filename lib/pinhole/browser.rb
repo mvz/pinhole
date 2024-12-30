@@ -23,8 +23,8 @@ module Pinhole
       @iconview.set_model model
     end
 
-    def connect_activation_signal(&block)
-      GObject.signal_connect @iconview, "item-activated", &block
+    def connect_activation_signal(&)
+      GObject.signal_connect(@iconview, "item-activated", &)
     end
 
     def unfullscreen
