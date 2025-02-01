@@ -29,11 +29,11 @@ module Pinhole
       @browser.connect_activation_signal do |view, path|
         model = view.model
 
-        r, it = model.get_iter(path)
+        r, iter = model.get_iter(path)
 
         next unless r
 
-        filename = model.get_value(it, 0)
+        filename = model.get_value(iter, 0)
 
         @image.load_image_from_file(filename)
 
@@ -50,7 +50,7 @@ module Pinhole
       @store = Gtk::ListStore.new([st, pt, st])
 
       @provider.each do |f|
-        it = @store.append
+        iter = @store.append
 
         unless File.exist? f
           warn "File #{f} does not exist"
@@ -68,9 +68,9 @@ module Pinhole
           pb = GdkPixbuf::Pixbuf.new_from_file_at_size(iconpath, 128, 128)
         end
 
-        @store.set_value it, 0, f
-        @store.set_value it, 1, pb
-        @store.set_value it, 2, File.basename(f)
+        @store.set_value iter, 0, f
+        @store.set_value iter, 1, pb
+        @store.set_value iter, 2, File.basename(f)
       end
 
       @browser.model = @store
