@@ -10,12 +10,10 @@ module Pinhole
 
     def each
       cursor = searcher.query <<~SPARQL
-        SELECT ?url ?typ
+        SELECT ?url
         WHERE {
-                ?photo a nmm:Photo ;
-                        nie:isStoredAs ?as .
-                ?as nie:url ?url .
-                ?photo nie:mimeType ?typ .
+                ?photo a nmm:Photo .
+                ?photo nie:isStoredAs ?url .
         }
         LIMIT 10
       SPARQL
