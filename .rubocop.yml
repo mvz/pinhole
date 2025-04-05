@@ -5,11 +5,9 @@ inherit_mode:
     - Exclude
 
 plugins:
+  - rubocop-packaging
   - rubocop-performance
   - rubocop-rake
-
-require:
-  - rubocop-packaging
 
 AllCops:
   NewCops: enable
