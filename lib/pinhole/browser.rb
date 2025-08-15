@@ -5,6 +5,7 @@ module Pinhole
   # Image browser. Displays images as a set of icons.
   class Browser
     extend Forwardable
+
     def_delegators :@widget, :to_ptr, :set_visible
 
     def initialize
