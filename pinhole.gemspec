@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.homepage = "http://www.github.com/mvz/pinhole"
 
   spec.license = "GPL-2+"
-  spec.required_ruby_version = ">= 3.1.0"
+  spec.required_ruby_version = ">= 3.2.0"
 
   spec.metadata["rubygems_mfa_required"] = "true"
 
